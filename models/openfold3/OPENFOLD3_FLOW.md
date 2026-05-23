@@ -19,7 +19,7 @@ The two differ by exactly **9 source files** (see `edited_files/` and `patches/`
 
 ## Two-stage design
 
-The pipeline runs in two stages. **Stage 2 reuses Stage 1's outputs** — it does
+The pipeline runs in two stages. **Stage 2 reuses Stage 1's outputs** - it does
 not regenerate templates or CIFs.
 
 ```
