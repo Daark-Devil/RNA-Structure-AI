@@ -1,0 +1,10 @@
+RNA	length	RMSD_with_templates	RMSD_pipelineB_seqonly	RMSD_difference	filled_templates	notes
+1EUQ	72	6.516	6.459	+0.057	4/4	ok
+1KPY	28	-	-	-	-	prep/fix failed
+1KPZ	28	-	-	-	-	prep/fix failed
+4V2S	58	-	-	-	-	prep/fix failed
+2LC8	56	8.095	N/A	-	2/4	ok
+1DRZ	72	4.005	4.093	-0.088	1/4	ok
+1SJF	74	6.864	N/A	-	1/4	ok
+2NOQ	190	11.351	N/A	-	3/4	ok
+3HHN	137	2.793	N/A	-	4/4	ok
