@@ -1,0 +1,19 @@
+{
+  "queries": {
+    "17RA_motif_test": {
+      "use_msas": false,
+      "chains": [
+        {
+          "molecule_type": "rna",
+          "chain_ids": "A",
+          "sequence": "GGCGUAAGGAUUACCUAUGCC",
+          "template_alignment_file_path": "$HOME/Projects/Openfold_template/batch_runs/withtemplate/17RA/17RA_templates.sto",
+          "template_entry_chain_ids": [
+            "m0_A",
+            "m1_C"
+          ]
+        }
+      ]
+    }
+  }
+}

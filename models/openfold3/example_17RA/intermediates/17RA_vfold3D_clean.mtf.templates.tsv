@@ -1,0 +1,8 @@
+motif_idx	motif	pdb	template_seq	chain	score
+0	2-way 2 1 chain  A 5 A 8 A 15 A 17 sequence UAAG CUA	17ra	UAAG CUA	A 5 A 8 A 15 A 17 	0
+0	2-way 2 1 chain  A 5 A 8 A 15 A 17 sequence UAAG CUA	4v19	UAAG CUA	 A 1043 A 1046 A 1437 A 1439 	0
+0	2-way 2 1 chain  A 5 A 8 A 15 A 17 sequence UAAG CUA	4ang	UAAG CUA	 R 4 R 7 R 15 R 17 	0
+0	2-way 2 1 chain  A 5 A 8 A 15 A 17 sequence UAAG CUA	5uf3	UAAG CUA	 A 6 A 9 A 16 A 18 	0
+0	2-way 2 1 chain  A 5 A 8 A 15 A 17 sequence UAAG CUA	4byp	UAAG CUA	7 62 7 65 7 15 7 17 	0
+1	HAIRPIN 4 chain  A 9 A 14 sequence GAUUAC	6v3d	GAUUAC	C 83 C 88 	0
+1	HAIRPIN 4 chain  A 9 A 14 sequence GAUUAC	1aq4	GAUUAC	R 8 R 13 	0

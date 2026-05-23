@@ -1,0 +1,18 @@
+2-way 2 1 chain  A 5 A 8 A 15 A 17 sequence UAAG CUA
+HAIRPIN 4 chain  A 9 A 14 sequence GAUUAC
+HELIX 2 chain  A 8 A 9 A 14 A 15 sequence GG CC
+HELIX 5 chain  A 1 A 5 A 17 A 21 sequence GGCGU AUGCC
+#######################################################
+
+
+ find templates for each motif
+-----best templates:
+  ***** 2-way 2 1 chain  A 5 A 8 A 15 A 17 sequence UAAG CUA
+17ra UAAG CUA  chain A 5 A 8 A 15 A 17    0
+4v19 UAAG CUA  chain  A 1043 A 1046 A 1437 A 1439    0
+4ang UAAG CUA  chain  R 4 R 7 R 15 R 17    0
+5uf3 UAAG CUA  chain  A 6 A 9 A 16 A 18    0
+4byp UAAG CUA  chain 7 62 7 65 7 15 7 17    0
+  ***** HAIRPIN 4 chain  A 9 A 14 sequence GAUUAC
+6v3d GAUUAC  chain C 83 C 88    0
+1aq4 GAUUAC  chain R 8 R 13    0

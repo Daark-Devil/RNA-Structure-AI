@@ -1,0 +1,19 @@
+template_preprocessor_settings:
+  mode: predict
+  moltypes:
+    - 1
+  max_sequences_parse: 200
+  max_templates: 50
+  fetch_missing_structures: false
+  create_precache: true
+  preparse_structures: false
+  create_logs: true
+  n_processes: 1
+  chunksize: 1
+  structure_directory: $HOME/Projects/Openfold_template/batch_runs/withtemplate/17RA/of3_structures
+  structure_file_format: cif
+  output_directory: $HOME/Projects/Openfold_template/batch_runs/withtemplate/17RA/template_data
+  precache_directory: null
+  structure_array_directory: null
+  cache_directory: $HOME/Projects/Openfold_template/batch_runs/withtemplate/17RA/template_data/template_cache
+  log_directory: $HOME/Projects/Openfold_template/batch_runs/withtemplate/17RA/template_data/logs

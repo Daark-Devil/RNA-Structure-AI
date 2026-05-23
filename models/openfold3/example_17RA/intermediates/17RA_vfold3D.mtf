@@ -1,0 +1,4 @@
+2-way 2 1 chain  A 5 A 8 A 15 A 17 sequence UAAG CUA
+HAIRPIN 4 chain  A 9 A 14 sequence GAUUAC
+HELIX 2 chain  A 8 A 9 A 14 A 15 sequence GG CC
+HELIX 5 chain  A 1 A 5 A 17 A 21 sequence GGCGU AUGCC

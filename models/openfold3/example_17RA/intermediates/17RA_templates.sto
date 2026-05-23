@@ -1,0 +1,8 @@
+# STOCKHOLM 1.0
+#=GS query_A/1-21 DE mol:rna length:21
+#=GS m0_A/5-17 mol:rna
+#=GS m1_C/83-88 mol:rna
+query_A/1-21          GGCGUAAGGAUUACCUAUGCC
+m0_A/5-17             ----UAAG------CUA----
+m1_C/83-88            --------GAUUAC-------
+//
