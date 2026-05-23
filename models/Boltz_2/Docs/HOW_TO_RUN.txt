@@ -1,0 +1,61 @@
+BOLTZ-2 RNA CONFIGS — HOW TO RUN
+=================================
+configs_for_guide/
+├── HOW_TO_RUN.txt
+├── part1_ss_constraints/
+│   ├── generate_boltz_yaml.py
+│   └── example_1A1T_ss.yaml
+└── part2_template/
+    ├── generate_template_yaml.py
+    └── example_1A1T_template.yaml
+
+
+Two approaches. Each folder has a generator + one example YAML.
+
+Env: conda activate boltz2
+(Part 2 / template needs the PATCHED Boltz-2.)
+
+
+PART 1 — SS CONSTRAINTS
+-----------------------
+Inputs you provide:
+  .seq  one line:  GGACUAGCGGAGGCUAGUCC
+  .2d   two lines: sequence, then dot-bracket
+                   GGACUAGCGGAGGCUAGUCC
+                   ((((((((....))))))))
+
+Generate YAML:
+  python generate_boltz_yaml.py --rna NAME --seq NAME.seq --ss NAME.2d --out NAME.yaml
+
+Run:
+  boltz predict NAME.yaml --diffusion_samples 5 --recycling_steps 3 \
+      --sampling_steps 200 --out_dir results_NAME --override
+
+Output:
+  results_NAME/boltz_results_NAME/predictions/NAME/NAME_model_0.cif  (+ model_1..4)
+
+
+PART 2 — TEMPLATE
+-----------------
+Input you provide:
+  a template structure as PDB (e.g. NAME.pdb)
+
+Generate YAML (also writes the CIF the YAML points to):
+  python generate_template_yaml.py --rna NAME --pdb NAME.pdb \
+      --out NAME_template.yaml --cif_out NAME.cif
+
+Run (5 seeds for best-of-5):
+  for S in 0 1 2 3 4; do
+    boltz predict NAME_template.yaml --seed $S --out_dir results_NAME_s$S --override
+  done
+
+Output:
+  results_NAME_s<seed>/boltz_results_*/predictions/*/*_model_0.cif
+
+
+NOTES
+-----
+- Part 1 works on stock Boltz-2. Part 2 needs the patched Boltz-2.
+- Template YAML uses template_id [Axp]: gemmi renames the chain A->Axp during
+  PDB->CIF conversion. The generator sets this automatically. Do not change to A.
+- No MSA is used in either approach.
