@@ -82,10 +82,10 @@ method overall, with large gains on several RNAs (e.g. 1P5P 22.45 -> 3.54 A,
 1E7K 8.98 -> 0.94 A). Boltz-2 templates won on some RNAs (e.g. 3G8T 2.80 A),
 showing the two approaches are complementary rather than one strictly dominating.
 Per-RNA tables and head-to-head comparisons are in each model's `results/` folder.
-Some RNAs did not improve (e.g. 1U9S with synthetic MSA) — these are reported too.
+Some RNAs did not improve (e.g. 1U9S with synthetic MSA) :- these are reported too.
 
 ## Notes
 - No proprietary weights or large datasets are included; install upstream models
   for those.
-- Paths in scripts use placeholders / are passed as arguments — see each model
+- Paths in scripts use placeholders / are passed as arguments :- see each model
   README for the specific paths to set.
