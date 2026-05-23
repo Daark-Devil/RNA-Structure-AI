@@ -1,0 +1,522 @@
+# STOCKHOLM 1.0
+
+#=GS 1Z30_A                             AC 1Z30_A
+
+#=GS 1Z30_A                             DE 1Z30_A
+
+1Z30_A                                   GGCGUUCGUUAGAACGUC
+synth0001/1-18                           GGCGUUCAAUAGAACGCC
+#=GR synth0001/1-18 PP                   999999999999999999
+synth0002/1-18                           CGCGUUUGUUAGAACGUG
+#=GR synth0002/1-18 PP                   999999999999999999
+synth0003/1-18                           AGGGUUUGUUAAAACCUU
+#=GR synth0003/1-18 PP                   999999999999999999
+synth0004/1-18                           GGCGUUCGUUA-AACGUC
+#=GR synth0004/1-18 PP                   999999999999999999
+synth0005/1-18                           AGUGUUCGU-AGAACAUU
+#=GR synth0005/1-18 PP                   999999999999999999
+synth0006/1-18                           GGCGUUCCUUAGAACGUC
+#=GR synth0006/1-18 PP                   999999999999999999
+synth0007/1-18                           GACGUUCCCUAGAACGCC
+#=GR synth0007/1-18 PP                   999999999999999999
+synth0008/1-18                           UUCGUACGUGAGUACGAA
+#=GR synth0008/1-18 PP                   999999999999999999
+synth0009/1-18                           GGCGGUCGG-AGAUCGUC
+#=GR synth0009/1-18 PP                   999999999999999999
+synth0010/1-18                           GGCGUUGGUGUCAACGUC
+#=GR synth0010/1-18 PP                   999999999999999999
+synth0011/1-18                           GGCGCUCGU-UGAGCGUC
+#=GR synth0011/1-18 PP                   999999999999999999
+synth0012/1-18                           GGCGUCCGUUAGGACGUC
+#=GR synth0012/1-18 PP                   999999999999999999
+synth0013/1-18                           GGGGUUCGUUAGAACCUC
+#=GR synth0013/1-18 PP                   999999999999999999
+synth0014/1-18                           GGCGUUCGUCUGAACGUC
+#=GR synth0014/1-18 PP                   999999999999999999
+synth0015/1-18                           GGCGUUCGUUUGAACGUC
+#=GR synth0015/1-18 PP                   999999999999999999
+synth0016/1-18                           GGCGUUCCUUAGAACGUC
+#=GR synth0016/1-18 PP                   999999999999999999
+synth0017/1-18                           GGCGUUGAUUACAACGUC
+#=GR synth0017/1-18 PP                   999999999999999999
+synth0018/1-18                           GGCGUUCGUUAGAACGUC
+#=GR synth0018/1-18 PP                   999999999999999999
+synth0019/1-18                           GGCGUUCGUUAGAACGUC
+#=GR synth0019/1-18 PP                   999999999999999999
+synth0020/1-18                           GGCGUUCGUUAGAACGUC
+#=GR synth0020/1-18 PP                   999999999999999999
+synth0021/1-18                           GGUGUUCGUUAGAACAUC
+#=GR synth0021/1-18 PP                   999999999999999999
+synth0022/1-18                           GGCGUACAUUCGCACGUC
+#=GR synth0022/1-18 PP                   999999999999999999
+synth0023/1-18                           UGCGUUCGU-AGAACGUG
+#=GR synth0023/1-18 PP                   999999999999999999
+synth0024/1-18                           GGCGUUCUUUAGAACGUC
+#=GR synth0024/1-18 PP                   999999999999999999
+synth0025/1-18                           GGCGUUCGUAAGAACGUC
+#=GR synth0025/1-18 PP                   999999999999999999
+synth0026/1-18                           GGCGUUCGUUAGAACGUC
+#=GR synth0026/1-18 PP                   999999999999999999
+synth0027/1-18                           GGCGGUCGUUAGAUCGUC
+#=GR synth0027/1-18 PP                   999999999999999999
+synth0028/1-18                           GGCGUUCGUUAGAACGUC
+#=GR synth0028/1-18 PP                   999999999999999999
+synth0029/1-18                           GGCGUUCGU-CGAACGUC
+#=GR synth0029/1-18 PP                   999999999999999999
+synth0030/1-18                           GGCGUUCGAUAGAACGUC
+#=GR synth0030/1-18 PP                   999999999999999999
+synth0031/1-18                           GGCGUUCGUUAGAACGUC
+#=GR synth0031/1-18 PP                   999999999999999999
+synth0032/1-18                           GGCGUUCGUUAGAACGUC
+#=GR synth0032/1-18 PP                   999999999999999999
+synth0033/1-18                           GGGGUUCGUG-GAACCUC
+#=GR synth0033/1-18 PP                   999999999999999999
+synth0034/1-18                           UGCGUUCGUUGGAACGCA
+#=GR synth0034/1-18 PP                   999999999999999999
+synth0035/1-18                           GGCGUUCGCUAGAACGUC
+#=GR synth0035/1-18 PP                   999999999999999999
+synth0036/1-18                           GGCGUUGGUCACAACGUC
+#=GR synth0036/1-18 PP                   999999999999999999
+synth0037/1-18                           GUCGUUCGUUAGAACGAC
+#=GR synth0037/1-18 PP                   999999999999999999
+synth0038/1-18                           GGGGUUCCUUAGAACUUC
+#=GR synth0038/1-18 PP                   999999999999999999
+synth0039/1-18                           GGCGUGCGAUGGCACGUC
+#=GR synth0039/1-18 PP                   999999999999999999
+synth0040/1-18                           GGCGUUCGUUCGAACGUC
+#=GR synth0040/1-18 PP                   999999999999999999
+synth0041/1-18                           AGCGUCCGUUAGCACGUU
+#=GR synth0041/1-18 PP                   999999999999999999
+synth0042/1-18                           GGCGUUCAUUAGAACGUC
+#=GR synth0042/1-18 PP                   999999999999999999
+synth0043/1-18                           GGCGUUCGUUAGAACGUC
+#=GR synth0043/1-18 PP                   999999999999999999
+synth0044/1-18                           GGCGUUCGUUAGAACGUC
+#=GR synth0044/1-18 PP                   999999999999999999
+synth0045/1-18                           GGCGUUAUUU-UAACGUC
+#=GR synth0045/1-18 PP                   999999999999999999
+synth0046/1-18                           GGCGUUCG-UAGAACGCC
+#=GR synth0046/1-18 PP                   999999999999999999
+synth0047/1-18                           GGCUUUCGUUAGAAGGUC
+#=GR synth0047/1-18 PP                   999999999999999999
+synth0048/1-18                           GGCGUUCGCU-GAACGUC
+#=GR synth0048/1-18 PP                   999999999999999999
+synth0049/1-18                           GUCGUUCGUUUGAACGAC
+#=GR synth0049/1-18 PP                   999999999999999999
+synth0050/1-18                           GGGGUUCGUUAGAACUUC
+#=GR synth0050/1-18 PP                   999999999999999999
+synth0051/1-18                           GGCGUUCAUUAGAACGUC
+#=GR synth0051/1-18 PP                   999999999999999999
+synth0052/1-18                           GGCAUUCCUGAGAAUGUC
+#=GR synth0052/1-18 PP                   999999999999999999
+synth0053/1-18                           UGCGUUCGUGAGAACGUA
+#=GR synth0053/1-18 PP                   999999999999999999
+synth0054/1-18                           AGCGUUCGCUAGAACGUU
+#=GR synth0054/1-18 PP                   999999999999999999
+synth0055/1-18                           GGCGUUCGU-AGAACGUC
+#=GR synth0055/1-18 PP                   999999999999999999
+synth0056/1-18                           GGCGUACGUCAGUACGUC
+#=GR synth0056/1-18 PP                   999999999999999999
+synth0057/1-18                           GGCGUUCGUUAGAACGUC
+#=GR synth0057/1-18 PP                   999999999999999999
+synth0058/1-18                           GGCGUUCGUCAGAACGUC
+#=GR synth0058/1-18 PP                   999999999999999999
+synth0059/1-18                           GUCGCUCGUGAGAGCGAC
+#=GR synth0059/1-18 PP                   999999999999999999
+synth0060/1-18                           GGCGUUAGUCAUAACGUC
+#=GR synth0060/1-18 PP                   999999999999999999
+synth0061/1-18                           GGCGUUCGUUAGAACGUC
+#=GR synth0061/1-18 PP                   999999999999999999
+synth0062/1-18                           GCCGUCC-UUAGGACGGC
+#=GR synth0062/1-18 PP                   999999999999999999
+synth0063/1-18                           -GCGUUCGUUAGAACGUC
+#=GR synth0063/1-18 PP                   999999999999999999
+synth0064/1-18                           GACGUCCGGUAGGACGUC
+#=GR synth0064/1-18 PP                   999999999999999999
+synth0065/1-18                           GGCGUUCGUUAGAACGUC
+#=GR synth0065/1-18 PP                   999999999999999999
+synth0066/1-18                           UGCGUCCGUUAGUCCGUA
+#=GR synth0066/1-18 PP                   999999999999999999
+synth0067/1-18                           GGCGUUCGUUAGAACGUC
+#=GR synth0067/1-18 PP                   999999999999999999
+synth0068/1-18                           UGCGCCCGUCAGGGCGUA
+#=GR synth0068/1-18 PP                   999999999999999999
+synth0069/1-18                           GCCGUCCGUUAGGACGGC
+#=GR synth0069/1-18 PP                   999999999999999999
+synth0070/1-18                           GGCGUUCG-UGGAACGUC
+#=GR synth0070/1-18 PP                   999999999999999999
+synth0071/1-18                           GGCGUUCGUAAGAACGUC
+#=GR synth0071/1-18 PP                   999999999999999999
+synth0072/1-18                           GGCGUUCUUUAGAACGUC
+#=GR synth0072/1-18 PP                   999999999999999999
+synth0073/1-18                           GGCGUUCGUUAGAACGUC
+#=GR synth0073/1-18 PP                   999999999999999999
+synth0074/1-18                           GGCGUUCGUUAGAACGUC
+#=GR synth0074/1-18 PP                   999999999999999999
+synth0075/1-18                           UGCGUUCGUUAGAACGUA
+#=GR synth0075/1-18 PP                   999999999999999999
+synth0076/1-18                           UGCG-UCGUCAGAACGUG
+#=GR synth0076/1-18 PP                   999999999999999999
+synth0077/1-18                           GGCGUUCGUUAGAACGUC
+#=GR synth0077/1-18 PP                   999999999999999999
+synth0078/1-18                           GGCGUUCGUUAGAACGUC
+#=GR synth0078/1-18 PP                   999999999999999999
+synth0079/1-18                           GGCGUUCGUUGGAACGUC
+#=GR synth0079/1-18 PP                   999999999999999999
+synth0080/1-18                           GGCGUUCGCUAGAACGUC
+#=GR synth0080/1-18 PP                   999999999999999999
+synth0081/1-18                           GGCGAUCGC-AGAUCGUC
+#=GR synth0081/1-18 PP                   999999999999999999
+synth0082/1-18                           GGCGUUGGUC-CAACGUC
+#=GR synth0082/1-18 PP                   999999999999999999
+synth0083/1-18                           GGCGUUCAUGAGAACGUC
+#=GR synth0083/1-18 PP                   999999999999999999
+synth0084/1-18                           GGCGUUCGUUAGAACGUC
+#=GR synth0084/1-18 PP                   999999999999999999
+synth0085/1-18                           AGCGUUCGUAAGAACGUC
+#=GR synth0085/1-18 PP                   999999999999999999
+synth0086/1-18                           GGCGUUCGUUUGAACGUC
+#=GR synth0086/1-18 PP                   999999999999999999
+synth0087/1-18                           GGCGAUCAUUAGAUCGUC
+#=GR synth0087/1-18 PP                   999999999999999999
+synth0088/1-18                           GUCGUUC-UUAGAACGAC
+#=GR synth0088/1-18 PP                   999999999999999999
+synth0089/1-18                           GGCGUUCAUUAGAACGUC
+#=GR synth0089/1-18 PP                   999999999999999999
+synth0090/1-18                           GGCGUUCGUUGGAACGUC
+#=GR synth0090/1-18 PP                   999999999999999999
+synth0091/1-18                           GGCGUGAGUGCUUACGUC
+#=GR synth0091/1-18 PP                   999999999999999999
+synth0092/1-18                           CGCGUUCGUUAGAACGUG
+#=GR synth0092/1-18 PP                   999999999999999999
+synth0093/1-18                           GGUGUUCUUUAGAACA-C
+#=GR synth0093/1-18 PP                   999999999999999999
+synth0094/1-18                           GGCGUUUGUUAGAACGUC
+#=GR synth0094/1-18 PP                   999999999999999999
+synth0095/1-18                           GGCGUUCGUGAGAACGUC
+#=GR synth0095/1-18 PP                   999999999999999999
+synth0096/1-18                           GACGUUCGUUAGAACGUC
+#=GR synth0096/1-18 PP                   999999999999999999
+synth0097/1-18                           GGCGUGCGUUAGCACGUC
+#=GR synth0097/1-18 PP                   999999999999999999
+synth0098/1-18                           GGCGUUCGUUAGAACGUC
+#=GR synth0098/1-18 PP                   999999999999999999
+synth0099/1-18                           GACGUUCGUUCGAACGUC
+#=GR synth0099/1-18 PP                   999999999999999999
+synth0100/1-18                           GUCGUUCGUUAGAACGAC
+#=GR synth0100/1-18 PP                   999999999999999999
+synth0101/1-18                           GGCGUUCGUUAGAACGUC
+#=GR synth0101/1-18 PP                   999999999999999999
+synth0102/1-18                           GACGUUCGA--GAACGUC
+#=GR synth0102/1-18 PP                   999999999999999999
+synth0103/1-18                           GGCGUUCGUUAGAACGUC
+#=GR synth0103/1-18 PP                   999999999999999999
+synth0104/1-18                           GGCGUUCGUUAGAACGUC
+#=GR synth0104/1-18 PP                   999999999999999999
+synth0105/1-18                           GGCGUUCAUUAGAACGUC
+#=GR synth0105/1-18 PP                   999999999999999999
+synth0106/1-18                           GGCGUUCUUUAGAACGUC
+#=GR synth0106/1-18 PP                   999999999999999999
+synth0107/1-18                           GGCUUUCGAUAGAAGGUC
+#=GR synth0107/1-18 PP                   999999999999999999
+synth0108/1-18                           GGCGUUCG-UAGAACGUC
+#=GR synth0108/1-18 PP                   999999999999999999
+synth0109/1-18                           GGCGUUCGUU-GAACGUC
+#=GR synth0109/1-18 PP                   999999999999999999
+synth0110/1-18                           GGCGUUUGUUAGAACGUC
+#=GR synth0110/1-18 PP                   999999999999999999
+synth0111/1-18                           GGCGUUCGCUAGAACGUC
+#=GR synth0111/1-18 PP                   999999999999999999
+synth0112/1-18                           GGCGUUUGUAUAAACGUC
+#=GR synth0112/1-18 PP                   999999999999999999
+synth0113/1-18                           GGCGAUCGUUAG-UCGUC
+#=GR synth0113/1-18 PP                   999999999999999999
+synth0114/1-18                           UGCGUUC-GCAGAACGUA
+#=GR synth0114/1-18 PP                   999999999999999999
+synth0115/1-18                           GGCGUUCGUUAGAACGUC
+#=GR synth0115/1-18 PP                   999999999999999999
+synth0116/1-18                           GGCGUUCGUUAGAACGUC
+#=GR synth0116/1-18 PP                   999999999999999999
+synth0117/1-18                           UGCGUUCGUUAGAACGUG
+#=GR synth0117/1-18 PP                   999999999999999999
+synth0118/1-18                           GGCGUUCGCUUGAACGUC
+#=GR synth0118/1-18 PP                   999999999999999999
+synth0119/1-18                           GGCGUUCGUUGGAACGUC
+#=GR synth0119/1-18 PP                   999999999999999999
+synth0120/1-18                           GGCGUUCAUUAGAACGUC
+#=GR synth0120/1-18 PP                   999999999999999999
+synth0121/1-18                           GGCAUUCGUAAGAAUGUC
+#=GR synth0121/1-18 PP                   999999999999999999
+synth0122/1-18                           GGUCUUCGUUAGAAGAUC
+#=GR synth0122/1-18 PP                   999999999999999999
+synth0123/1-18                           GGCG-UCGUUAGAACGUC
+#=GR synth0123/1-18 PP                   999999999999999999
+synth0124/1-18                           GGCGUUCAUUAGAACGUC
+#=GR synth0124/1-18 PP                   999999999999999999
+synth0125/1-18                           UGCGUUCGUUAGAACGUG
+#=GR synth0125/1-18 PP                   999999999999999999
+synth0126/1-18                           GGCGUUCGUUAGAACGUC
+#=GR synth0126/1-18 PP                   999999999999999999
+synth0127/1-18                           GGCGUUAGAUUUAACGUC
+#=GR synth0127/1-18 PP                   999999999999999999
+synth0128/1-18                           GGCGUUCGUUAGAA-GUC
+#=GR synth0128/1-18 PP                   999999999999999999
+synth0129/1-18                           GGCGUUCGU-AGAACGUC
+#=GR synth0129/1-18 PP                   999999999999999999
+synth0130/1-18                           CGCGUUCGUUAGAACGUG
+#=GR synth0130/1-18 PP                   999999999999999999
+synth0131/1-18                           GGCAUUG-UUACAAUGUC
+#=GR synth0131/1-18 PP                   999999999999999999
+synth0132/1-18                           GGCGUUCAU-AGAACGUC
+#=GR synth0132/1-18 PP                   999999999999999999
+synth0133/1-18                           GGCGUUCGUUAGAACGUC
+#=GR synth0133/1-18 PP                   999999999999999999
+synth0134/1-18                           GGCGUUCUU-AGAACGUC
+#=GR synth0134/1-18 PP                   999999999999999999
+synth0135/1-18                           GGCGUUCGUUAGAACGUC
+#=GR synth0135/1-18 PP                   999999999999999999
+synth0136/1-18                           GGCGUUCGGUAGAACGUC
+#=GR synth0136/1-18 PP                   999999999999999999
+synth0137/1-18                           GGCGUUCGUUAGAACGUC
+#=GR synth0137/1-18 PP                   999999999999999999
+synth0138/1-18                           GGCGUGC-UUAGCACGUC
+#=GR synth0138/1-18 PP                   999999999999999999
+synth0139/1-18                           CGCGUUCGUUUGAACGUG
+#=GR synth0139/1-18 PP                   999999999999999999
+synth0140/1-18                           GGCGUUCG-UAGAACGUC
+#=GR synth0140/1-18 PP                   999999999999999999
+synth0141/1-18                           GGCGUUC--UAGAACGUC
+#=GR synth0141/1-18 PP                   999999999999999999
+synth0142/1-18                           GGCGUUCGUCCGAACGUC
+#=GR synth0142/1-18 PP                   999999999999999999
+synth0143/1-18                           GGCGUUCGUUAGAACGUC
+#=GR synth0143/1-18 PP                   999999999999999999
+synth0144/1-18                           GGCGUUCGUUAGAACGCC
+#=GR synth0144/1-18 PP                   999999999999999999
+synth0145/1-18                           GGCGUUCGUUAGAACGUU
+#=GR synth0145/1-18 PP                   999999999999999999
+synth0146/1-18                           CGCGUUUGUUAAAACGUG
+#=GR synth0146/1-18 PP                   999999999999999999
+synth0147/1-18                           GGCGUUCGUUUGAACGUC
+#=GR synth0147/1-18 PP                   999999999999999999
+synth0148/1-18                           GGCGAUCGU-AGAACGUC
+#=GR synth0148/1-18 PP                   999999999999999999
+synth0149/1-18                           GGCGUUCGUUAGAACGUC
+#=GR synth0149/1-18 PP                   999999999999999999
+synth0150/1-18                           GGCGCUCCUUAGACCGUC
+#=GR synth0150/1-18 PP                   999999999999999999
+synth0151/1-18                           GGCGUUCGUGAGAACGUC
+#=GR synth0151/1-18 PP                   999999999999999999
+synth0152/1-18                           GUCGUUCGUUAGAACGGC
+#=GR synth0152/1-18 PP                   999999999999999999
+synth0153/1-18                           GGCGUUUGUUAAAACGUC
+#=GR synth0153/1-18 PP                   999999999999999999
+synth0154/1-18                           GGCGUUCGUUAGAACGUC
+#=GR synth0154/1-18 PP                   999999999999999999
+synth0155/1-18                           AGCGUUCGUUAGAAUGUU
+#=GR synth0155/1-18 PP                   999999999999999999
+synth0156/1-18                           GGCAUUCUCUAGAACGUC
+#=GR synth0156/1-18 PP                   999999999999999999
+synth0157/1-18                           GGCGUUCGUUAGAACGUC
+#=GR synth0157/1-18 PP                   999999999999999999
+synth0158/1-18                           GGCGUUCACUCGAACGUC
+#=GR synth0158/1-18 PP                   999999999999999999
+synth0159/1-18                           GGCGUUCGUCAGAACGUC
+#=GR synth0159/1-18 PP                   999999999999999999
+synth0160/1-18                           GGCGUUCGUUGGAACGUC
+#=GR synth0160/1-18 PP                   999999999999999999
+synth0161/1-18                           GGCGUUCGUUAGAACGUC
+#=GR synth0161/1-18 PP                   999999999999999999
+synth0162/1-18                           GGCGGUGGUUGCACCGUC
+#=GR synth0162/1-18 PP                   999999999999999999
+synth0163/1-18                           GGCGUCCGUUAGGACGUC
+#=GR synth0163/1-18 PP                   999999999999999999
+synth0164/1-18                           GG-GUUAG-AAUAACGUC
+#=GR synth0164/1-18 PP                   999999999999999999
+synth0165/1-18                           GGCGUACGGUGGUACGUC
+#=GR synth0165/1-18 PP                   999999999999999999
+synth0166/1-18                           GGCGUUCGUUAGAACGUC
+#=GR synth0166/1-18 PP                   999999999999999999
+synth0167/1-18                           GGCGUUCGUUAGAACGUC
+#=GR synth0167/1-18 PP                   999999999999999999
+synth0168/1-18                           GGCGUUAGUUAUAACGUC
+#=GR synth0168/1-18 PP                   999999999999999999
+synth0169/1-18                           GGCGUUCGUAGGAACGUC
+#=GR synth0169/1-18 PP                   999999999999999999
+synth0170/1-18                           ACCGUUCGUUAGAACGGU
+#=GR synth0170/1-18 PP                   999999999999999999
+synth0171/1-18                           GGAGUUCGUUAGAACUCC
+#=GR synth0171/1-18 PP                   999999999999999999
+synth0172/1-18                           GGCCUUCGUU-GAAGGUC
+#=GR synth0172/1-18 PP                   999999999999999999
+synth0173/1-18                           GGCGUUGUUUAUAACGUC
+#=GR synth0173/1-18 PP                   999999999999999999
+synth0174/1-18                           GGCGUUCGUUAGAACGUC
+#=GR synth0174/1-18 PP                   999999999999999999
+synth0175/1-18                           GGCGUUCGUAAGAACGUC
+#=GR synth0175/1-18 PP                   999999999999999999
+synth0176/1-18                           GGCGUU--UUAG-ACGUC
+#=GR synth0176/1-18 PP                   999999999999999999
+synth0177/1-18                           GUCGUUCGU-AGAACGAC
+#=GR synth0177/1-18 PP                   999999999999999999
+synth0178/1-18                           GGCGUUGGUUGCAACGUC
+#=GR synth0178/1-18 PP                   999999999999999999
+synth0179/1-18                           GGCGUUCAUUAGAAUGUC
+#=GR synth0179/1-18 PP                   999999999999999999
+synth0180/1-18                           GACGUUA-UUAUAA-GUC
+#=GR synth0180/1-18 PP                   999999999999999999
+synth0181/1-18                           GGCGUUAGUUAUAACGUU
+#=GR synth0181/1-18 PP                   999999999999999999
+synth0182/1-18                           GGCGUUC-CCCGAACGUC
+#=GR synth0182/1-18 PP                   999999999999999999
+synth0183/1-18                           GGCGUUCGC-AGAACGUC
+#=GR synth0183/1-18 PP                   999999999999999999
+synth0184/1-18                           GGCGCUCGCUCGAUCGUC
+#=GR synth0184/1-18 PP                   999999999999999999
+synth0185/1-18                           GGCGUUCGUGAGAACGUC
+#=GR synth0185/1-18 PP                   999999999999999999
+synth0186/1-18                           GGGGUUCGUUAGAACCUC
+#=GR synth0186/1-18 PP                   999999999999999999
+synth0187/1-18                           GGCGUUCGUUAGAACGUC
+#=GR synth0187/1-18 PP                   999999999999999999
+synth0188/1-18                           GGCGUUCGUUAGAACGUC
+#=GR synth0188/1-18 PP                   999999999999999999
+synth0189/1-18                           GGCGUUCGUUAGAACGCC
+#=GR synth0189/1-18 PP                   999999999999999999
+synth0190/1-18                           GGCGUUCGGUAGAACGUC
+#=GR synth0190/1-18 PP                   999999999999999999
+synth0191/1-18                           GGCGUUC-UGAGAA-GUC
+#=GR synth0191/1-18 PP                   999999999999999999
+synth0192/1-18                           GGCGUUCGU-AGAACGUC
+#=GR synth0192/1-18 PP                   999999999999999999
+synth0193/1-18                           GGGGUUC-UUAGAACCUC
+#=GR synth0193/1-18 PP                   999999999999999999
+synth0194/1-18                           GGCGUUC-UUAUAACGUC
+#=GR synth0194/1-18 PP                   999999999999999999
+synth0195/1-18                           CACGUUGGUUUCAACGUG
+#=GR synth0195/1-18 PP                   999999999999999999
+synth0196/1-18                           GGCGUUCGUUAGAACGUC
+#=GR synth0196/1-18 PP                   999999999999999999
+synth0197/1-18                           GGCGUUCCUUCGAACGUC
+#=GR synth0197/1-18 PP                   999999999999999999
+synth0198/1-18                           GGCGUUC-UUAGAACGUC
+#=GR synth0198/1-18 PP                   999999999999999999
+synth0199/1-18                           GGCGUUCGUUAGAACGUC
+#=GR synth0199/1-18 PP                   999999999999999999
+synth0200/1-18                           GGCGUGCGUUAGCACGUC
+#=GR synth0200/1-18 PP                   999999999999999999
+synth0201/1-18                           GGGGUUCCUUAGAACCUC
+#=GR synth0201/1-18 PP                   999999999999999999
+synth0202/1-18                           CGCGUUCGUUAGAACGUG
+#=GR synth0202/1-18 PP                   999999999999999999
+synth0203/1-18                           GGCGUUCGUUUGAACGUC
+#=GR synth0203/1-18 PP                   999999999999999999
+synth0204/1-18                           GGCGUUGAUUACAACGUC
+#=GR synth0204/1-18 PP                   999999999999999999
+synth0205/1-18                           GACGUUCGAGAGAACGUC
+#=GR synth0205/1-18 PP                   999999999999999999
+synth0206/1-18                           GGCGUUCGUUUGAACGUC
+#=GR synth0206/1-18 PP                   999999999999999999
+synth0207/1-18                           GGCGUUCGUUAGAACGUC
+#=GR synth0207/1-18 PP                   999999999999999999
+synth0208/1-18                           GGCGUUCGUUAGAACGUC
+#=GR synth0208/1-18 PP                   999999999999999999
+synth0209/1-18                           GGCGUCCGUUGGGACGUC
+#=GR synth0209/1-18 PP                   999999999999999999
+synth0210/1-18                           UGCGUUCAUUAGAACGUG
+#=GR synth0210/1-18 PP                   999999999999999999
+synth0211/1-18                           CACGUUCGUUAGAACGAG
+#=GR synth0211/1-18 PP                   999999999999999999
+synth0212/1-18                           GGCGUUG-UUACAACGUC
+#=GR synth0212/1-18 PP                   999999999999999999
+synth0213/1-18                           GGCAUUCGUUAGAAUGUC
+#=GR synth0213/1-18 PP                   999999999999999999
+synth0214/1-18                           GGCGUUCG-UAGAACGUC
+#=GR synth0214/1-18 PP                   999999999999999999
+synth0215/1-18                           GGCGUUCGU-AGAACGUC
+#=GR synth0215/1-18 PP                   999999999999999999
+synth0216/1-18                           GGCGUUCAUUAGAACGUC
+#=GR synth0216/1-18 PP                   999999999999999999
+synth0217/1-18                           AGCGCUC-UGAGAGCGUU
+#=GR synth0217/1-18 PP                   999999999999999999
+synth0218/1-18                           GGCGCUCGUUAGAGCGUC
+#=GR synth0218/1-18 PP                   999999999999999999
+synth0219/1-18                           GGCGUUCGUUAGAACGUC
+#=GR synth0219/1-18 PP                   999999999999999999
+synth0220/1-18                           GGCGAUCGUUGGAUCGUC
+#=GR synth0220/1-18 PP                   999999999999999999
+synth0221/1-18                           UGCGUUGUUUACAACGUG
+#=GR synth0221/1-18 PP                   999999999999999999
+synth0222/1-18                           GGUGUGCAUUAGCACGUC
+#=GR synth0222/1-18 PP                   999999999999999999
+synth0223/1-18                           GGCGUUCGG-AGAACGUC
+#=GR synth0223/1-18 PP                   999999999999999999
+synth0224/1-18                           GGCGUUCGGUAGAACGUC
+#=GR synth0224/1-18 PP                   999999999999999999
+synth0225/1-18                           CACGCUCGUUAGAGCGUG
+#=GR synth0225/1-18 PP                   999999999999999999
+synth0226/1-18                           GGCUUUCUCGAGAAAGUC
+#=GR synth0226/1-18 PP                   999999999999999999
+synth0227/1-18                           GGCGUUCGUUAGAACGUC
+#=GR synth0227/1-18 PP                   999999999999999999
+synth0228/1-18                           UGCGUUGAUAACAACGUC
+#=GR synth0228/1-18 PP                   999999999999999999
+synth0229/1-18                           GGCGUUCGUUAGAACGUC
+#=GR synth0229/1-18 PP                   999999999999999999
+synth0230/1-18                           UGCGUCC-AUAGCACGUG
+#=GR synth0230/1-18 PP                   999999999999999999
+synth0231/1-18                           GGCG-UCGUUAGAACGUC
+#=GR synth0231/1-18 PP                   999999999999999999
+synth0232/1-18                           GGCGUUCGUCAGAACGUC
+#=GR synth0232/1-18 PP                   999999999999999999
+synth0233/1-18                           GGCGUUCG-UUGAA-GUC
+#=GR synth0233/1-18 PP                   999999999999999999
+synth0234/1-18                           GGCGUUCGUCAGAACGUC
+#=GR synth0234/1-18 PP                   999999999999999999
+synth0235/1-18                           GGCGUUCGUCAGAACGUC
+#=GR synth0235/1-18 PP                   999999999999999999
+synth0236/1-18                           CGCCUUAGA-AUAAGGUG
+#=GR synth0236/1-18 PP                   999999999999999999
+synth0237/1-18                           GGCGUUUGUUUAAACGUC
+#=GR synth0237/1-18 PP                   999999999999999999
+synth0238/1-18                           GGCGUUCGUUAGAACGUC
+#=GR synth0238/1-18 PP                   999999999999999999
+synth0239/1-18                           GGCGUUCGCUAGAACGUC
+#=GR synth0239/1-18 PP                   999999999999999999
+synth0240/1-18                           GGCGGUCGAUAGAUCGUC
+#=GR synth0240/1-18 PP                   999999999999999999
+synth0241/1-18                           GGCGUUGA-UACAACGUC
+#=GR synth0241/1-18 PP                   999999999999999999
+synth0242/1-18                           GGCGUUCGUUAGAACGCC
+#=GR synth0242/1-18 PP                   999999999999999999
+synth0243/1-18                           GGCGUUCGUCCGAACGUC
+#=GR synth0243/1-18 PP                   999999999999999999
+synth0244/1-18                           GGCGUUC-AUAGAACGUC
+#=GR synth0244/1-18 PP                   999999999999999999
+synth0245/1-18                           GGCGUUCGUUAGAACGUC
+#=GR synth0245/1-18 PP                   999999999999999999
+synth0246/1-18                           CGCGUUCCUUAGAACGUG
+#=GR synth0246/1-18 PP                   999999999999999999
+synth0247/1-18                           GGCGUCCGUAAGGACGUC
+#=GR synth0247/1-18 PP                   999999999999999999
+synth0248/1-18                           GGCUAUAGUUAUAUAGUC
+#=GR synth0248/1-18 PP                   999999999999999999
+synth0249/1-18                           GGCGUUCGUUGGAACGUC
+#=GR synth0249/1-18 PP                   999999999999999999
+synth0250/1-18                           GGCGUUCGUUAGAACGUC
+#=GR synth0250/1-18 PP                   999999999999999999
+synth0251/1-18                           GGCGUUCGUUAGAACGUC
+#=GR synth0251/1-18 PP                   999999999999999999
+synth0252/1-18                           GGCGUUCGCUAGAACGUC
+#=GR synth0252/1-18 PP                   999999999999999999
+synth0253/1-18                           CG-GUUCGUUAGAACGCG
+#=GR synth0253/1-18 PP                   999999999999999999
+synth0254/1-18                           GGCGUUCGUCAGAACGUC
+#=GR synth0254/1-18 PP                   999999999999999999
+synth0255/1-18                           GGCGUUCGUUAGAACGU-
+#=GR synth0255/1-18 PP                   999999999999999999
+synth0256/1-18                           CGCGUUCAUUAGAACGUG
+#=GR synth0256/1-18 PP                   999999999999999999
+#=GC PP_cons                             999999999999999999
+#=GC RF                                  xxxxxxxxxxxxxxxxxx
+//

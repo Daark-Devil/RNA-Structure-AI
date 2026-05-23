@@ -1,0 +1,20 @@
+{
+  "queries": {
+    "1Z30_msa_test": {
+      "use_msas": true,
+      "use_main_msas": true,
+      "use_paired_msas": false,
+      "chains": [
+        {
+          "molecule_type": "rna",
+          "chain_ids": "A",
+          "sequence": "GGCGUUCGUUAGAACGUC",
+          "main_msa_file_paths": "$HOME/ss_msa_test/1Z30/synthetic_msa/chain_A",
+          "paired_msa_file_paths": null,
+          "template_alignment_file_path": "$HOME/ss_msa_test/1Z30/1Z30_templates.sto",
+          "template_entry_chain_ids": ["m0_A"]
+        }
+      ]
+    }
+  }
+}
