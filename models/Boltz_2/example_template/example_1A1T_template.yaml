@@ -1,0 +1,9 @@
+version: 1
+sequences:
+  - rna:
+      id: A
+      sequence: GGACUAGCGGAGGCUAGUCC
+templates:
+  - cif: ./1A1T.cif
+    chain_id: [A]
+    template_id: [Axp]

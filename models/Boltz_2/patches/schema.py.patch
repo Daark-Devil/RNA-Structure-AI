@@ -1,0 +1,35 @@
+--- a/boltz/data/parse/schema.py	2026-05-17 12:42:00.171646493 -0500
++++ b/boltz/data/parse/schema.py	2026-05-17 12:42:00.458581199 -0500
+@@ -1347,8 +1347,13 @@
+         res_num = len(chain.residues)
+         atom_num = sum(len(res.atoms) for res in chain.residues)
+ 
+-        # Save protein chains for later
+-        if chain.type == const.chain_type_ids["PROTEIN"]:
++        # Save templateable chains (PROTEIN + RNA + DNA) for later
++        # PATCHED: was protein-only, now accepts RNA/DNA templates too
++        if chain.type in (
++            const.chain_type_ids["PROTEIN"],
++            const.chain_type_ids["RNA"],
++            const.chain_type_ids["DNA"],
++        ):
+             protein_chains.add(chain_name)
+ 
+         # Add affinity info
+@@ -1674,10 +1679,15 @@
+                 use_assembly=False,
+                 compute_interfaces=False,
+             )
++        # PATCHED: was protein-only, now accepts RNA/DNA template chains too
+         template_proteins = {
+             str(c["name"])
+             for c in parsed_template.data.chains
+-            if c["mol_type"] == const.chain_type_ids["PROTEIN"]
++            if c["mol_type"] in (
++                const.chain_type_ids["PROTEIN"],
++                const.chain_type_ids["RNA"],
++                const.chain_type_ids["DNA"],
++            )
+         }
+         if template_chain_ids is None:
+             template_chain_ids = list(template_proteins)

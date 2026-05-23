@@ -1,0 +1,49 @@
+--- a/boltz/data/tokenize/boltz2.py	2026-05-17 12:42:00.182643990 -0500
++++ b/boltz/data/tokenize/boltz2.py	2026-05-17 12:42:00.463580061 -0500
+@@ -169,6 +169,9 @@
+         res_start = chain["res_idx"]
+         res_end = chain["res_idx"] + chain["res_num"]
+         is_protein = chain["mol_type"] == const.chain_type_ids["PROTEIN"]
++        # PATCHED: RNA/DNA frame support for templates
++        is_rna = chain["mol_type"] == const.chain_type_ids["RNA"]
++        is_dna = chain["mol_type"] == const.chain_type_ids["DNA"]
+         affinity_mask = (affinity is not None) and (
+             int(chain["asym_id"]) == int(affinity.chain_id)
+         )
+@@ -221,6 +224,36 @@
+                             atom_c["coords"],
+                         )
+                         frame_rot = frame_rot.flatten()
++                # PATCHED: RNA/DNA frame from C4' -> C1' -> N (N9 purines, N1 pyrimidines)
++                # mirrors the protein N-CA-C convention; t=C1' matches center_coords
++                elif is_rna or is_dna:
++                    atom_st = res["atom_idx"]
++                    atom_en = res["atom_idx"] + res["atom_num"]
++                    atoms = struct.atoms[atom_st:atom_en]
++                    res_name = str(res["name"])
++                    # Choose glycosidic N: N9 for purines, N1 for pyrimidines
++                    purines = {"A", "G", "DA", "DG"}
++                    n_glyc_name = "N9" if res_name in purines else "N1"
++                    # Look up the three frame atoms by name
++                    name_to_atom = {str(a["name"]): a for a in atoms}
++                    atom_c4p = name_to_atom.get("C4'")
++                    atom_c1p = name_to_atom.get("C1'")
++                    atom_n_glyc = name_to_atom.get(n_glyc_name)
++                    if atom_c4p is not None and atom_c1p is not None and atom_n_glyc is not None:
++                        frame_mask = bool(
++                            atom_c4p["is_present"]
++                            and atom_c1p["is_present"]
++                            and atom_n_glyc["is_present"]
++                        )
++                        if frame_mask:
++                            # compute_frame expects (n, ca, c); we pass
++                            # (N_glyc, C1', C4') — analog mapping
++                            frame_rot, frame_t = compute_frame(
++                                atom_n_glyc["coords"],
++                                atom_c1p["coords"],
++                                atom_c4p["coords"],
++                            )
++                            frame_rot = frame_rot.flatten()
+ 
+                 # Create token
+                 token = TokenData(
