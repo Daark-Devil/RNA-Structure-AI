@@ -1,4 +1,4 @@
-# OpenFold3 — RNA Template + Synthetic-MSA Pipeline
+# OpenFold3 :- RNA Template + Synthetic-MSA Pipeline
 
 Predicting RNA 3D structure with OpenFold3, modified to accept RNA templates and
 (optionally) a synthetic secondary-structure-derived MSA.
@@ -39,7 +39,7 @@ docs/           OPENFOLD3_FLOW.md (full flow explanation)
 - A conda env (here `openfold3_rna_templ`) and CUDA toolkit module
 
 
-## STAGE 1 — Template pipeline
+## STAGE 1 : Template pipeline
 
 ```bash
 conda activate openfold3_rna_templ
@@ -47,7 +47,7 @@ bash run_one_rna_of3_template.sh <RNA>
 ```
 
 Argument:
-- `<RNA>` — RNA name, e.g. `1Z30`. The script looks for `<RNA>.seq` and `<RNA>.2d`
+- `<RNA>` : RNA name, e.g. `1Z30`. The script looks for `<RNA>.seq` and `<RNA>.2d`
   inside the workdir base (see paths to change below).
 
 Produces (under `<BATCH_BASE>/withtemplate/<RNA>/`):
@@ -57,7 +57,7 @@ Produces (under `<BATCH_BASE>/withtemplate/<RNA>/`):
 - `output_of3-p2-145k/`             template-only prediction
 
 
-## STAGE 2 — Add synthetic MSA and run
+## STAGE 2 : Add synthetic MSA and run
 
 ```bash
 bash run_ss_msa_pipeline.sh <RNA> <SEQ_FILE> <SS_FILE> <STAGE1_DIR> [REF_PDB]
