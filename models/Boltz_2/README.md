@@ -1,4 +1,4 @@
-# Boltz-2 — RNA Structure Prediction (SS Constraints + Templates)
+# Boltz-2 : RNA Structure Prediction (SS Constraints + Templates)
 
 Two ways to guide Boltz-2 RNA structure prediction:
 
