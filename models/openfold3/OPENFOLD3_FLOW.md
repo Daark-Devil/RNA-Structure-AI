@@ -2,7 +2,7 @@
 
 How one RNA is predicted with this modified OpenFold3, and how the four
 benchmark conditions are produced. Built and run on an HPC cluster (SLURM).
-Paths shown are the originals — replace with your own.
+Paths shown are the originals - replace with your own.
 
 ---
 
@@ -48,7 +48,7 @@ STAGE 2 : MSA / TOKEN-BOND LAYER   (run_4cond_batch.sh)
 ```
 
 The CIF being identical across stages is confirmed: the Stage-2 CIF is a byte-for-
-byte copy of the Stage-1 CIF. **No manual CIF creation at any point** — your prep
+byte copy of the Stage-1 CIF. **No manual CIF creation at any point** - your prep
 scripts make it in Stage 1, Stage 2 reuses it.
 
 ---
