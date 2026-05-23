@@ -1,4 +1,4 @@
-# OpenFold3 — RNA Template Support (Modified Files)
+# OpenFold3 :- RNA Template Support (Modified Files)
 
 These are the **9 OpenFold3 source files** modified to add RNA template support
 (stock OpenFold3 supports protein templates only). This folder mirrors the internal
@@ -26,14 +26,14 @@ OpenFold3 package structure, so replacing the originals is a single recursive co
 The internal structure under `site-packages/openfold3/` is identical on every
 machine — only the prefix path differs. So we find the prefix once, then copy.
 
-### Step 1 — find your OpenFold3 install path
+### Step 1 : find your OpenFold3 install path
 ```bash
 OF3=$(python -c "import openfold3, os; print(os.path.dirname(openfold3.__file__))")
 echo "$OF3"
 # e.g. /opt/conda/envs/yourenv/lib/python3.11/site-packages/openfold3
 ```
 
-### Step 2 — back up the 9 originals (so you can revert)
+### Step 2 : back up the 9 originals (so you can revert)
 ```bash
 for f in \
   core/data/framework/single_datasets/inference.py \
@@ -51,14 +51,14 @@ done
 echo "backups created (.orig)"
 ```
 
-### Step 3 — replace with the modified files
+### Step 3 : replace with the modified files
 This folder mirrors the OpenFold3 tree, so one recursive copy puts every file in
 the right place:
 ```bash
 cp -r edited_files/* "$OF3/"
 ```
 
-### Step 4 — verify it still imports
+### Step 4 : verify it still imports
 ```bash
 python -c "import openfold3; print('import ok')"
 ```
