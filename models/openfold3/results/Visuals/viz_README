@@ -1,0 +1,53 @@
+# Visualization :- Baseline vs Synthetic-MSA vs Reference
+
+Scripts and figures comparing OpenFold3 RNA predictions with and without the
+synthetic secondary-structure MSA, against the native structure.
+
+## Figures
+
+Each PNG is a 4-panel comparison (baseline / with-MSA / reference / overlay).
+In the overlay panel: reference = black, baseline = red, with-MSA = green.
+
+| Figure | Baseline RMSD | With-MSA RMSD | Result |
+|--------|---------------|---------------|--------|
+| `1P5P_msa_improvement.png` | 22.45 Å | 3.54 Å | -18.9 Å ( improvement) |
+| `1P5O_msa_improvement.png` | 22.57 Å | 4.18 Å | -18.4 Å ( improvement) |
+| `1E7K_msa_improvement.png` | 8.98 Å | 0.94 Å | -8.0 Å (sub-Angstrom result) |
+| `1U9S_msa_failure.png` | 14.72 Å | 28.88 Å | +14.2 Å (MSA hurt : failure case) |
+
+The synthetic MSA produces large gains on many RNAs, but not all :- 1U9S is shown
+as a case where it degraded the prediction, included for an honest picture.
+
+## Scripts
+
+Two ways to render the comparison. Both pick the best structure per condition by
+lowest C1' Kabsch RMSD vs the reference.
+
+### viz_3way_msa_comparison.py  (PyMOL )
+Cartoon rendering with motif coloring, ray-traced. Requires PyMOL.
+
+```bash
+python viz_3way_msa_comparison.py \
+    --rna 1E7K 1P5P 1P5O 1U9S \
+    --workdirs      <dir of <RNA>/<RNA>.pdb + markers/> \
+    --baseline-base <batch_runs/withtemplate base dir> \
+    --msa-base      <ss_msa_test base dir> \
+    --out-dir       <output dir> \
+    --rmsd-tool     <path to compare_rna_kabsch.py>
+```
+Produces `<out-dir>/<RNA>/3way_msa_comparison.png` per RNA. Pass one or more RNA
+names to `--rna`. Only the named RNAs' subfolders are written
+
+### visualize_comparison.py  (matplotlib :- lightweight fallback)
+Plots C1' backbone traces with matplotlib + biopython. Use if PyMOL is not
+available. Plainer output but no heavy dependency.
+
+```bash
+python visualize_comparison.py --help    # see its arguments
+```
+
+## Dependencies
+- PyMOL (for the main script) — `conda install -c conda-forge pymol-open-source`
+- or matplotlib + biopython (for the fallback) — `pip install matplotlib biopython`
+- Pillow (panel assembly, main script)
+- compare_rna_kabsch.py (RMSD; in the scripts/ folder of this repo)
