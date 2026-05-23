@@ -1,4 +1,4 @@
-# OpenFold3 RNA Pipeline — Complete Flow
+# OpenFold3 RNA Pipeline :- Complete Flow
 
 How one RNA is predicted with this modified OpenFold3, and how the four
 benchmark conditions are produced. Built and run on an HPC cluster (SLURM).
@@ -23,7 +23,7 @@ The pipeline runs in two stages. **Stage 2 reuses Stage 1's outputs** — it doe
 not regenerate templates or CIFs.
 
 ```
-STAGE 1 — TEMPLATE PIPELINE        (run_one_rna_of3_template.sh)
+STAGE 1 : TEMPLATE PIPELINE        (run_one_rna_of3_template.sh)
   INPUT:  RNA.seq + RNA.2d
   STEPS:
     1. VFold3D motif extraction        (vfold3D_motif.o)
@@ -40,7 +40,7 @@ STAGE 1 — TEMPLATE PIPELINE        (run_one_rna_of3_template.sh)
 
            |  Stage 2 copies of3_structures/*.cif + RNA_templates.sto
            v
-STAGE 2 — MSA / TOKEN-BOND LAYER   (run_4cond_batch.sh)
+STAGE 2 : MSA / TOKEN-BOND LAYER   (run_4cond_batch.sh)
   REUSES:  of3_structures/*.cif, RNA_templates.sto  (copied, identical)
   GENERATES: synthetic MSA            (ss_to_synthetic_msa.py)
   BUILDS:  per-condition JSON + runner.yml
