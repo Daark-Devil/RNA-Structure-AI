@@ -2,9 +2,9 @@
 
 Two ways to guide Boltz-2 RNA structure prediction:
 
-1. **SS constraints** — convert a secondary structure (dot-bracket) into base-pair
+1. **SS constraints** :- convert a secondary structure (dot-bracket) into base-pair
    contact constraints in the Boltz YAML. Works on **stock Boltz-2**.
-2. **Templates** — supply an RNA 3D template (CIF) and have Boltz-2 use its
+2. **Templates** :- supply an RNA 3D template (CIF) and have Boltz-2 use its
    geometry. Requires a **patched Boltz-2** (2 edited files; stock Boltz rejects
    RNA template chains).
 
@@ -38,7 +38,7 @@ results/                     benchmark tables
 See `edited_files/README.md` to apply them. Approach 1 (SS constraints) needs no
 code changes.
 
-## Approach 1 — SS constraints (stock Boltz-2)
+## Approach 1 : SS constraints (stock Boltz-2)
 
 Inputs: a one-line `.seq` and a `.2d` (sequence + dot-bracket).
 
@@ -56,7 +56,7 @@ Output: `results_1A1T/boltz_results_1A1T/predictions/1A1T/1A1T_model_0.cif` (+ 1
 The generator parses the dot-bracket into base pairs and writes them as Boltz
 contact constraints. Example in `example_ss_constraints/`.
 
-## Approach 2 — Template (patched Boltz-2)
+## Approach 2 : Template (patched Boltz-2)
 
 Input: an RNA template structure as PDB. The generator converts it to CIF and
 writes a YAML that references it.
