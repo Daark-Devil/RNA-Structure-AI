@@ -1,0 +1,16 @@
+--- /home/dpancholi1/miniconda3/envs/openfold3_clean/lib/python3.11/site-packages/openfold3/core/data/primitives/quality_control/asserts.py	2026-04-20 17:15:09.142751736 -0500
++++ /home/dpancholi1/miniconda3/envs/openfold3_rna_templ/lib/python3.11/site-packages/openfold3/core/data/primitives/quality_control/asserts.py	2026-05-10 23:53:01.557675358 -0500
+@@ -279,6 +279,13 @@
+ 
+ def assert_token_bonds_atomized(features):
+     """Asserts that all tokens with token_bonds are atomized."""
++    # TOKEN_BONDS_SS_PATCH (start) -----------------------------------------
++    # When we inject SS pairs into token_bonds for RNA, the RNA tokens
++    # are NOT atomized — they would fail this check. Skip when env var set.
++    import os as _os
++    if _os.environ.get("SS_TOKEN_BONDS_FILE"):
++        return  # SS injection mode: skip atomization check
++    # TOKEN_BONDS_SS_PATCH (end) -------------------------------------------
+     has_token_bonds_pos = torch.where(
+         (
+             torch.sum(features["token_bonds"], dim=0)

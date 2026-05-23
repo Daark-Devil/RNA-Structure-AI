@@ -1,0 +1,93 @@
+--- /home/dpancholi1/miniconda3/envs/openfold3_clean/lib/python3.11/site-packages/openfold3/core/data/pipelines/sample_processing/template.py	2026-04-20 17:15:09.126755362 -0500
++++ /home/dpancholi1/miniconda3/envs/openfold3_rna_templ/lib/python3.11/site-packages/openfold3/core/data/pipelines/sample_processing/template.py	2026-04-26 19:26:55.945734634 -0500
+@@ -91,12 +91,35 @@
+     """
+     # Get protein chain IDs from the cropped atom array
+     protein_chain_ids = np.unique(
+-        atom_array[atom_array.molecule_type_id == MoleculeType.PROTEIN].chain_id
++        atom_array[
++            (atom_array.molecule_type_id == MoleculeType.PROTEIN) |
++            (atom_array.molecule_type_id == MoleculeType.RNA)
++        ].chain_id
+     )
++
++    # ---- TPL-TRACE Stage 2: process entry ----
++    print(
++        f"[TPL-TRACE-PROC] process_template_structures_of3 entry: "
++        f"chains_eligible={list(protein_chain_ids)} "
++        f"n_templates={n_templates} take_top_k={take_top_k} "
++        f"min_n_tokens_per_chain={min_n_tokens_per_chain} "
++        f"template_cache_dir={template_cache_directory} "
++        f"template_struct_arr_dir={template_structure_array_directory} "
++        f"template_struct_dir={template_structures_directory}",
++        flush=True,
++    )
++
+     if (len(protein_chain_ids) == 0) | (
+         template_structure_array_directory is None
+         and template_structures_directory is None
+     ):
++        print(
++            f"[TPL-TRACE-PROC] EARLY EXIT: empty TemplateSliceCollection — "
++            f"reason: chains={len(protein_chain_ids)} "
++            f"struct_arr_dir={template_structure_array_directory} "
++            f"struct_dir={template_structures_directory}",
++            flush=True,
++        )
+         return TemplateSliceCollection(template_slices={})
+ 
+     # Iterate over protein chains in the atom array
+@@ -105,8 +128,19 @@
+     template_slices = {}
+     for chain_id in protein_chain_ids:
+         atom_array_query_chain = atom_array[atom_array.chain_id == chain_id]
++        _n_tokens_chain = len(np.unique(atom_array_query_chain.token_id))
++        # ---- TPL-TRACE Stage 2b: per-chain entry ----
++        print(
++            f"[TPL-TRACE-PROC]   chain={chain_id} n_tokens={_n_tokens_chain}",
++            flush=True,
++        )
+         # No templates if < 5 tokens in the chain (and crop during training)
+-        if len(np.unique(atom_array_query_chain.token_id)) < min_n_tokens_per_chain:
++        if _n_tokens_chain < min_n_tokens_per_chain:
++            print(
++                f"[TPL-TRACE-PROC]   chain={chain_id} SKIP — "
++                f"only {_n_tokens_chain} tokens < min {min_n_tokens_per_chain}",
++                flush=True,
++            )
+             continue
+ 
+         # Sample templates and fetch their data from the cache
+@@ -121,6 +155,14 @@
+             use_roda_monomer_format=use_roda_monomer_format,
+         )
+ 
++        # ---- TPL-TRACE Stage 2c: sampled_template_data result ----
++        print(
++            f"[TPL-TRACE-PROC]   chain={chain_id} "
++            f"sampled_template_data: {len(sampled_template_data)} entries, "
++            f"keys={list(sampled_template_data.keys())[:8]}",
++            flush=True,
++        )
++
+         # Map token positions to template atom arrays
+         template_slices[chain_id] = align_template_to_query(
+             sampled_template_data=sampled_template_data,
+@@ -130,5 +172,17 @@
+             ccd=ccd,
+             atom_array_query_chain=atom_array_query_chain,
+         )
++        # ---- TPL-TRACE Stage 2d: align result ----
++        print(
++            f"[TPL-TRACE-PROC]   chain={chain_id} "
++            f"align_template_to_query returned {len(template_slices[chain_id])} slices",
++            flush=True,
++        )
+ 
++    print(
++        f"[TPL-TRACE-PROC] EXIT: TemplateSliceCollection with "
++        f"{sum(len(v) for v in template_slices.values())} total slices "
++        f"across {len(template_slices)} chains",
++        flush=True,
++    )
+     return TemplateSliceCollection(template_slices=template_slices)

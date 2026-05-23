@@ -1,0 +1,307 @@
+--- /home/dpancholi1/miniconda3/envs/openfold3_clean/lib/python3.11/site-packages/openfold3/core/data/pipelines/preprocessing/template.py	2026-04-20 17:15:09.104760349 -0500
++++ /home/dpancholi1/miniconda3/envs/openfold3_rna_templ/lib/python3.11/site-packages/openfold3/core/data/pipelines/preprocessing/template.py	2026-04-26 20:24:43.732936516 -0500
+@@ -1788,9 +1788,16 @@
+         self,
+         input_data: TemplatePreprocessorInputTrain | TemplatePreprocessorInputInference,
+     ) -> None:
++        print(f"[TPL-PREP] WRAPPER entry for {input_data.aln_path}", flush=True)
+         try:
+             func_timeout(60, self._preprocess_templates_for_query, args=(input_data,))
++            print(f"[TPL-PREP] WRAPPER exit OK for {input_data.aln_path}", flush=True)
+         except Exception as e:
++            import traceback as _tb
++            print(
++                f"[TPL-PREP] WRAPPER CAUGHT EXCEPTION: type={type(e).__name__} msg={e}\n{_tb.format_exc()}",
++                flush=True,
++            )
+             print(
+                 f"Failed to preprocess template alignment "
+                 f"{input_data.aln_path}:"
+@@ -1803,6 +1810,18 @@
+         self,
+         input_data: TemplatePreprocessorInputTrain | TemplatePreprocessorInputInference,
+     ) -> None:
++        # ---- TPL-PREP-TRACE entry ----
++        print(
++            f"[TPL-PREP] _preprocess_templates_for_query entry: "
++            f"aln_path={input_data.aln_path} "
++            f"query_seq_len={len(input_data.query_seq_str)} "
++            f"create_logs={self.create_logs} "
++            f"cache_directory={self.cache_directory} "
++            f"structure_directory={self.structure_directory} "
++            f"structure_file_format={self.structure_file_format} "
++            f"fetch_missing={self.fetch_missing_structures}",
++            flush=True,
++        )
+         if self.create_logs:
+             worker_logger = logging.getLogger(f"template_preprocess_{os.getpid()}")
+             worker_logger.setLevel(logging.INFO)
+@@ -1849,11 +1868,22 @@
+             templates = parse_template_alignment(
+                 input_data.aln_path, input_data.query_seq_str, self.max_sequences_parse
+             )
++            print(
++                f"[TPL-PREP] parse_template_alignment returned {len(templates)} "
++                f"templates with keys={list(templates.keys())[:8]}",
++                flush=True,
++            )
+             if self.create_logs:
+                 worker_logger.info(f"Parsed {len(templates)} templates...")
+             template_cache_entry = {}
+             template_ids = []
+             for _, template in templates.items():
++                print(
++                    f"[TPL-PREP]   iter template: entry_id={template.entry_id} "
++                    f"chain_id={template.chain_id} seq_len={len(template.seq)} "
++                    f"q_cov={template.q_cov:.2f} seq_id={template.seq_id:.2f}",
++                    flush=True,
++                )
+                 # A. Sequence checks
+                 if fails_template_sequence_checks(
+                     template, self.max_seq_id, self.min_align, self.min_len
+@@ -1906,8 +1936,21 @@
+                 # We need
+                 # - either the raw template structure
+                 # - or the precache entry and the structure arrays both
++                # ---- TPL-PREP-TRACE per-template availability ----
++                print(
++                    f"[TPL-PREP]     {template.entry_id}: "
++                    f"structure_available={structure_available} "
++                    f"path={template_structure_file} "
++                    f"precache_available={precache_entry_available}",
++                    flush=True,
++                )
+                 if (not structure_available) & (not precache_entry_available):
+                     if not self.fetch_missing_structures:
++                        print(
++                            f"[TPL-PREP]     SKIP {template.entry_id} — "
++                            f"missing structure & fetching disabled",
++                            flush=True,
++                        )
+                         if self.create_logs:
+                             worker_logger.info(
+                                 f"Template structure for {template.entry_id} is "
+@@ -1940,8 +1983,16 @@
+                             continue
+ 
+                 # D. Load template structure
++                print(
++                    f"[TPL-PREP]   D-load: starting structure load for {template.entry_id} "
++                    f"precache_available={precache_entry_available} "
++                    f"preparse={self.preparse_structures} "
++                    f"struct_arr_avail={structure_arrays_available}",
++                    flush=True,
++                )
+                 # i. from precache if available
+                 if precache_entry_available:
++                    print(f"[TPL-PREP]   D-load: branch=precache file={precache_entry_file}", flush=True)
+                     if self.create_logs:
+                         worker_logger.info(
+                             f"Loading precache entry {precache_entry_file}."
+@@ -1952,33 +2003,62 @@
+                     ) as precache_entry:
+                         chain_id_seq_map = precache_entry["chain_id_seq_map"].item()
+                         release_date = precache_entry["release_date"].item()
++                    print(
++                        f"[TPL-PREP]   D-load: precache loaded. chains={list(chain_id_seq_map.keys()) if chain_id_seq_map else 'EMPTY'} release_date={release_date}",
++                        flush=True,
++                    )
+ 
+                 # ii. from raw structure if not precached
+                 else:
++                    print(f"[TPL-PREP]   D-load: branch=raw file={template_structure_file}", flush=True)
+                     # Preprocess into per-chain arrays if prompted
+                     if self.preparse_structures & (not structure_arrays_available):
++                        print(f"[TPL-PREP]   D-load: calling preprocess_template_structure_for_template", flush=True)
+                         if self.create_logs:
+                             worker_logger.info(
+                                 f"Loading structure {template_structure_file} and"
+                                 " preparsing."
+                             )
+-                        cif_file, _ = preprocess_template_structure_for_template(
+-                            template_structure_file,
+-                            template_structure_array_subdirectory,
+-                            self.ccd,
+-                            self.moltypes,
+-                        )
++                        try:
++                            cif_file, _ = preprocess_template_structure_for_template(
++                                template_structure_file,
++                                template_structure_array_subdirectory,
++                                self.ccd,
++                                self.moltypes,
++                            )
++                            print(f"[TPL-PREP]   D-load: preprocess succeeded", flush=True)
++                        except Exception as _e:
++                            import traceback as _tb
++                            print(f"[TPL-PREP]   D-load: preprocess EXCEPTION {type(_e).__name__}: {_e}\n{_tb.format_exc()}", flush=True)
++                            raise
+                     else:
++                        print(f"[TPL-PREP]   D-load: calling _load_ciffile", flush=True)
+                         if self.create_logs:
+                             worker_logger.info(
+                                 f"Loading structure {template_structure_file}."
+                             )
+-                        cif_file = _load_ciffile(template_structure_file)
+-
+-                    chain_id_seq_map = get_asym_id_to_canonical_seq_dict(cif_file)
+-                    release_date = get_release_date(get_cif_block(cif_file)).strftime(
+-                        "%Y-%m-%d"
+-                    )
++                        try:
++                            cif_file = _load_ciffile(template_structure_file)
++                            print(f"[TPL-PREP]   D-load: _load_ciffile succeeded", flush=True)
++                        except Exception as _e:
++                            import traceback as _tb
++                            print(f"[TPL-PREP]   D-load: _load_ciffile EXCEPTION {type(_e).__name__}: {_e}\n{_tb.format_exc()}", flush=True)
++                            raise
++
++                    try:
++                        chain_id_seq_map = get_asym_id_to_canonical_seq_dict(cif_file)
++                        print(f"[TPL-PREP]   D-load: chain_id_seq_map keys={list(chain_id_seq_map.keys()) if chain_id_seq_map else 'EMPTY'}", flush=True)
++                    except Exception as _e:
++                        print(f"[TPL-PREP]   D-load: get_asym_id_to_canonical_seq_dict EXCEPTION {type(_e).__name__}: {_e}", flush=True)
++                        raise
++                    try:
++                        release_date = get_release_date(get_cif_block(cif_file)).strftime(
++                            "%Y-%m-%d"
++                        )
++                        print(f"[TPL-PREP]   D-load: release_date={release_date}", flush=True)
++                    except Exception as _e:
++                        print(f"[TPL-PREP]   D-load: get_release_date EXCEPTION {type(_e).__name__}: {_e}", flush=True)
++                        raise
+ 
+                     if self.create_precache:
+                         if self.create_logs:
+@@ -2009,7 +2089,18 @@
+                             f" {template.entry_id} {template.chain_id}. Realigning."
+                         )
+                     template_sequence = chain_id_seq_map.get(template.chain_id)
++                    print(
++                        f"[TPL-PREP]   E-realign: looking up chain_id={template.chain_id} "
++                        f"in chain_id_seq_map keys={list(chain_id_seq_map.keys()) if chain_id_seq_map else 'EMPTY'} "
++                        f"-> found={template_sequence is not None}",
++                        flush=True,
++                    )
+                     if template_sequence is None:
++                        print(
++                            f"[TPL-PREP]   E-realign: SKIP {template.entry_id} — "
++                            f"chain {template.chain_id} not in structure",
++                            flush=True,
++                        )
+                         # TODO: add warning - the chain ID from the alignment is not
+                         # present in the structure file
+                         continue
+@@ -2023,12 +2114,15 @@
+                 # F. Apply release date checks
+                 if not isinstance(release_date, datetime):
+                     release_date = datetime.strptime(release_date, "%Y-%m-%d")
+-                if fails_template_release_date_checks(
++                _release_fail = fails_template_release_date_checks(
+                     template_release_date=release_date,
+                     query_release_date=None,  # TODO: add for training logic
+                     max_template_release_date=self.max_release_date,
+                     min_release_date_diff=self.min_release_date_diff,
+-                ):
++                )
++                print(f"[TPL-PREP]   F-release-date: fails={_release_fail}", flush=True)
++                if _release_fail:
++                    print(f"[TPL-PREP]   F-release-date: SKIP {template.entry_id}", flush=True)
+                     if self.create_logs:
+                         worker_logger.info(
+                             f"{template.entry_id} {template.chain_id} does not pass"
+@@ -2041,7 +2135,16 @@
+                 chain_id_matched = match_template_seq_from_aln_to_struc(
+                     template, chain_id_seq_map
+                 )
++                print(
++                    f"[TPL-PREP]   G-match: template.chain_id={template.chain_id} "
++                    f"chain_id_matched={chain_id_matched}",
++                    flush=True,
++                )
+                 if chain_id_matched is None:
++                    print(
++                        f"[TPL-PREP]   G-match: SKIP {template.entry_id} — sequence not matched",
++                        flush=True,
++                    )
+                     if self.create_logs:
+                         worker_logger.info(
+                             f"{template.entry_id} {template.chain_id} sequence could"
+@@ -2062,6 +2165,11 @@
+                     ),
+                 }
+                 template_ids.append(f"{template.entry_id}_{chain_id_matched}")
++                print(
++                    f"[TPL-PREP]   H-cache-add: ADDED {template.entry_id}_{chain_id_matched} "
++                    f"(running total entries={len(template_cache_entry)})",
++                    flush=True,
++                )
+                 if self.create_logs:
+                     worker_logger.info(
+                         f"{template.entry_id} {template.chain_id} added to cache."
+@@ -2072,12 +2180,24 @@
+                     break
+ 
+             # 6. Save template cache entry and update shared dict of template IDs
++            print(
++                f"[TPL-PREP] EXIT: cache_entries={len(template_cache_entry)} "
++                f"template_ids={template_ids} "
++                f"will_save={len(template_cache_entry) > 0} "
++                f"cache_file={template_cache_entry_file}",
++                flush=True,
++            )
+             if len(template_cache_entry) > 0:
+                 if self.create_logs:
+                     worker_logger.info(f"Found {len(template_cache_entry)} hits.")
+                 np.savez_compressed(template_cache_entry_file, **template_cache_entry)
+                 self.hash_template_id_map[query_seq_hash] = template_ids
++                print(
++                    f"[TPL-PREP] EXIT: hash_template_id_map[{query_seq_hash}] = {template_ids}",
++                    flush=True,
++                )
+             else:
++                print(f"[TPL-PREP] EXIT: NOTHING SAVED — empty cache", flush=True)
+                 if self.create_logs:
+                     worker_logger.info("Found no hits.")
+ 
+@@ -2230,18 +2350,31 @@
+ 
+                         # Check that backbone and pseudo-beta atoms are present in at
+                         # least the prespecified fraction of residues
+-                        is_n = structure_array.atom_name == "N"
+-                        is_ca = structure_array.atom_name == "CA"
+-                        is_c = structure_array.atom_name == "C"
+-
+-                        is_gly = structure_array.res_name == "GLY"
+-                        is_cb = structure_array.atom_name == "CB"
+-                        is_pseudo_beta_atom = (is_gly & is_ca) | (~is_gly & is_cb)
++                        _rna_res = {"A", "G", "C", "U", "DA", "DG", "DC", "DT"}
++                        _res_set = set(structure_array.res_name)
++                        _is_rna = bool(_res_set & _rna_res)
++
++                        if _is_rna:
++                            is_frame0 = structure_array.atom_name == "P"
++                            is_frame1 = structure_array.atom_name == "C4'"
++                            is_frame2 = structure_array.atom_name == "C1'"
++                            is_pseudo_beta_atom = structure_array.atom_name == "C1'"
++                            _atom_masks = [is_frame0, is_frame1, is_frame2, is_pseudo_beta_atom]
++                            _atom_names = ["backbone P", "backbone C4'", "backbone C1'", "pseudo beta C1'"]
++                        else:
++                            is_n = structure_array.atom_name == "N"
++                            is_ca = structure_array.atom_name == "CA"
++                            is_c = structure_array.atom_name == "C"
++                            is_gly = structure_array.res_name == "GLY"
++                            is_cb = structure_array.atom_name == "CB"
++                            is_pseudo_beta_atom = (is_gly & is_ca) | (~is_gly & is_cb)
++                            _atom_masks = [is_n, is_ca, is_c, is_pseudo_beta_atom]
++                            _atom_names = ["backbone N", "backbone CA", "backbone C", "pseudo beta"]
+ 
+                         enough_resolved = True
+                         for mask, mask_name in zip(
+-                            [is_n, is_ca, is_c, is_pseudo_beta_atom],
+-                            ["backbone N", "backbone CA", "backbone C", "pseudo beta"],
++                            _atom_masks,
++                            _atom_names,
+                             strict=True,
+                         ):
+                             f_resolved = np.sum(

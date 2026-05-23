@@ -1,0 +1,242 @@
+--- /home/dpancholi1/miniconda3/envs/openfold3_clean/lib/python3.11/site-packages/openfold3/core/data/primitives/structure/template.py	2026-04-20 17:15:09.169745616 -0500
++++ /home/dpancholi1/miniconda3/envs/openfold3_rna_templ/lib/python3.11/site-packages/openfold3/core/data/primitives/structure/template.py	2026-04-26 21:38:22.137588200 -0500
+@@ -198,7 +198,13 @@
+         ]
+ 
+     l = len(template_ids)
++    print(
++        f"[TPL-TRACE-SAMPLE] sample_templates entry: l={l} "
++        f"chain_data_keys={list(chain_data.keys())[:8] if chain_data else 'NONE'}",
++        flush=True,
++    )
+     if l == 0:
++        print("[TPL-TRACE-SAMPLE] returning {} — l==0 (no template_ids)", flush=True)
+         return {}
+ 
+     # Sample actual number of templates to use
+@@ -207,7 +213,7 @@
+     else:
+         k = np.min([np.random.randint(0, l + 1), n_templates])
+ 
+-    if k > 0 and template_cache_directory is not None:
++    if k > 0 and (template_cache_directory is not None or chain_data.get("cache_entry_file_path") is not None):
+         # Load template cache entry numpy file
+         # From the representative ID during training
+         if "alignment_representative_id" in chain_data:
+@@ -240,6 +246,12 @@
+             sampled_template_ids = np.random.choice(template_ids, k, replace=False)
+ 
+         # Wrap each subdict in a TemplateCacheEntry
++        print(
++            f"[TPL-TRACE-SAMPLE] returning dict with "
++            f"{len(sampled_template_ids)} TemplateCacheEntry items, "
++            f"ids={list(sampled_template_ids)}",
++            flush=True,
++        )
+         return {
+             template_id: TemplateCacheEntry(
+                 index=template_cache_entry[template_id]["index"],
+@@ -250,6 +262,13 @@
+         }
+ 
+     else:
++        print(
++            f"[TPL-TRACE-SAMPLE] returning {{}} via else-branch — "
++            f"k={k} l={l} template_cache_directory={template_cache_directory} "
++            f"chain_data has cache_entry_file_path="
++            f"{chain_data.get('cache_entry_file_path') if chain_data else None}",
++            flush=True,
++        )
+         return {}
+ 
+ 
+@@ -277,7 +296,12 @@
+             False otherwise.
+     """
+     idx_map = template_cache_entry.idx_map
++    # PATCH8: filter -1 sentinels on BOTH columns. Original code filtered only
++    # col 0 (query), but the .sto can produce -1 in col 1 (template) for gapped
++    # alignment positions. Keeping those rows pollutes `repeats` downstream and
++    # causes a residue-count shape mismatch that silently drops the template.
+     idx_map = idx_map[idx_map[:, 0] != -1, :]
++    idx_map = idx_map[idx_map[:, 1] != -1, :]
+ 
+     # Subset idx map to template residues that are in the query chain
+     res_in_query = np.unique(atom_array_query_chain.res_id.astype(int))
+@@ -463,25 +487,52 @@
+     ]
+ 
+     # Drop nonstandard residues without backbone or pseudo-beta atoms
+-    if ~np.all(np.isin(atom_array_cropped_template.res_name, standard_residues)):
++    # PATCH 6 (RNA support): detect RNA templates and use P/C4'/C1' instead of N/CA/C/CB
++    _rna_residues = {"A", "G", "C", "U", "DA", "DG", "DC", "DT"}
++    _res_name_set = set(atom_array_cropped_template.res_name)
++    _is_rna_template = bool(_res_name_set & _rna_residues) and not (
++        _res_name_set - _rna_residues
++    )
++    # ---- TPL-TRACE Stage 3: map_token_pos entry ----
++    print(
++        f"[TPL-TRACE-MAP] entry: query_len={len(atom_array_query_chain)} "
++        f"template_atoms_in={len(atom_array_template_chain)} "
++        f"after_idx_map_filter={len(atom_array_cropped_template)} "
++        f"idx_map_rows={idx_map_in_crop.shape[0]} "
++        f"_is_rna_template={_is_rna_template} "
++        f"res_names={sorted(_res_name_set)[:8]}",
++        flush=True,
++    )
++
++    if not bool(np.all(np.isin(atom_array_cropped_template.res_name, standard_residues))):
+         # Check if any non-standard residues are missing backbone or pseudo-beta atoms
+-        is_n = atom_array_cropped_template.atom_name == "N"
+-        is_ca = atom_array_cropped_template.atom_name == "CA"
+-        is_c = atom_array_cropped_template.atom_name == "C"
+-
+-        is_gly = atom_array_cropped_template.res_name == "GLY"
+-        is_cb = atom_array_cropped_template.atom_name == "CB"
+-        is_pseudo_beta_atom = (is_gly & is_ca) | (~is_gly & is_cb)
++        if _is_rna_template:
++            # RNA: use phosphate backbone P / C4' / C1', pseudo-beta = C1'
++            is_frame0 = atom_array_cropped_template.atom_name == "P"
++            is_frame1 = atom_array_cropped_template.atom_name == "C4'"
++            is_frame2 = atom_array_cropped_template.atom_name == "C1'"
++            is_pseudo_beta_atom = atom_array_cropped_template.atom_name == "C1'"
++            _required_masks = [is_frame0, is_frame1, is_frame2, is_pseudo_beta_atom]
++        else:
++            # Protein: original N / CA / C / pseudo-beta path
++            is_n = atom_array_cropped_template.atom_name == "N"
++            is_ca = atom_array_cropped_template.atom_name == "CA"
++            is_c = atom_array_cropped_template.atom_name == "C"
++
++            is_gly = atom_array_cropped_template.res_name == "GLY"
++            is_cb = atom_array_cropped_template.atom_name == "CB"
++            is_pseudo_beta_atom = (is_gly & is_ca) | (~is_gly & is_cb)
++            _required_masks = [is_n, is_ca, is_c, is_pseudo_beta_atom]
+ 
+         res_ids = atom_array_cropped_template.res_id.astype(np.int64)
+         unique_res_ids, res_idx = np.unique(res_ids, return_inverse=True)
+ 
+         # Accumulate presence for each required atom type
+         has_atom = np.zeros((unique_res_ids.size, 4), dtype=bool)
+-        for col, mask in enumerate([is_n, is_ca, is_c, is_pseudo_beta_atom]):
++        for col, mask in enumerate(_required_masks):
+             np.logical_or.at(has_atom[:, col], res_idx, mask)
+ 
+-        # Residues missing any of N/CA/C/pseudo-beta
++        # Residues missing any required atom (RNA: P/C4'/C1'; protein: N/CA/C/pseudo-beta)
+         missing_res_mask = ~has_atom.all(axis=1)
+ 
+         atom_array_cropped_template = atom_array_cropped_template[
+@@ -503,6 +554,14 @@
+ 
+     # Select highest occupancy residue for multi-occupancy residues
+     residue_starts = struc.get_residue_starts(atom_array_cropped_template)
++    print(
++        f"[TPL-TRACE-SHAPE] residue_starts.shape={residue_starts.shape} "
++        f"repeats.shape={repeats.shape} "
++        f"cropped_template_atoms={len(atom_array_cropped_template)} "
++        f"cropped_template_unique_resids={sorted(set(atom_array_cropped_template.res_id.astype(int).tolist()))[:20]} "
++        f"query_aligned_resids={sorted(set(query_token_atoms_aligned_cropped.res_id.astype(int).tolist()))[:20]}",
++        flush=True,
++    )
+     if residue_starts.shape != repeats.shape:
+         # sort 1st by residue id and 2nd by descending per-residue occupancy
+         res_ids_multi_occ = atom_array_cropped_template[residue_starts].res_id
+@@ -538,7 +597,19 @@
+ 
+     # Add to list of cropped + aligned template atom arrays for this chain
+     if template_slice is not None:
++        print(
++            f"[TPL-TRACE-MAP] APPENDING template_slice: "
++            f"atoms={len(template_slice.atom_array)} "
++            f"query_token_positions={len(template_slice.query_token_positions)} "
++            f"repeats_sum={int(template_slice.template_residue_repeats.sum())}",
++            flush=True,
++        )
+         template_slices.append(template_slice)
++    else:
++        print(
++            "[TPL-TRACE-MAP] NOT appending — template_slice is None (residues misaligned)",
++            flush=True,
++        )
+ 
+ 
+ @log_runtime_memory(runtime_dict_key="runtime-template-proc-align", multicall=True)
+@@ -573,15 +644,40 @@
+             the query atom array and with added ids indicating which token they map to
+             in the query chain AtomArray.
+     """
++    print(
++        f"[TPL-TRACE-ALIGN] align_template_to_query entry: "
++        f"sampled_template_data has {len(sampled_template_data)} keys: "
++        f"{list(sampled_template_data.keys())}",
++        flush=True,
++    )
+     if len(sampled_template_data) == 0:
++        print("[TPL-TRACE-ALIGN] EXIT [] — sampled_template_data is empty", flush=True)
+         return []
+ 
+     template_slices = []
+     # Iterate over the k templates
+     for template_pdb_chain_id, template_cache_entry in sampled_template_data.items():
++        print(
++            f"[TPL-TRACE-ALIGN] iter: template_id={template_pdb_chain_id} "
++            f"idx_map_rows={template_cache_entry.idx_map.shape[0]}",
++            flush=True,
++        )
+         # Subset the idx map to template residues that align to the query crop for
+         # training and skip if the template is outside the crop
+-        if subset_template_index_map(template_cache_entry, atom_array_query_chain):
++        _outside_crop = subset_template_index_map(
++            template_cache_entry, atom_array_query_chain
++        )
++        print(
++            f"[TPL-TRACE-ALIGN]   subset_template_index_map -> "
++            f"outside_crop={_outside_crop} "
++            f"new_idx_map_rows={template_cache_entry.idx_map.shape[0]}",
++            flush=True,
++        )
++        if _outside_crop:
++            print(
++                f"[TPL-TRACE-ALIGN]   SKIP id={template_pdb_chain_id} — outside crop",
++                flush=True,
++            )
+             continue
+ 
+         # Parse the template structure
+@@ -592,9 +688,27 @@
+             template_file_format,
+             ccd,
+         )
++        _atoms_n = (
++            len(atom_array_template_chain)
++            if atom_array_template_chain is not None
++            else "None"
++        )
++        print(
++            f"[TPL-TRACE-ALIGN]   parse_template_structure -> atoms={_atoms_n}",
++            flush=True,
++        )
+         if not atom_array_template_chain:
++            print(
++                f"[TPL-TRACE-ALIGN]   SKIP id={template_pdb_chain_id} — "
++                f"parse returned empty/None",
++                flush=True,
++            )
+             continue
+ 
++        print(
++            f"[TPL-TRACE-ALIGN]   calling map_token_pos_to_template_residues",
++            flush=True,
++        )
+         # Create query token position to template residue ID map
+         map_token_pos_to_template_residues(
+             template_slices,
+@@ -603,4 +717,8 @@
+             atom_array_template_chain,
+         )
+ 
++    print(
++        f"[TPL-TRACE-ALIGN] EXIT: template_slices has {len(template_slices)} entries",
++        flush=True,
++    )
+     return template_slices

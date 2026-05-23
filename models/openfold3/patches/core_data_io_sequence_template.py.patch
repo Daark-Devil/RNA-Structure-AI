@@ -1,0 +1,43 @@
+--- /home/dpancholi1/miniconda3/envs/openfold3_clean/lib/python3.11/site-packages/openfold3/core/data/io/sequence/template.py	2026-04-20 17:15:09.024778481 -0500
++++ /home/dpancholi1/miniconda3/envs/openfold3_rna_templ/lib/python3.11/site-packages/openfold3/core/data/io/sequence/template.py	2026-04-26 19:26:55.940735771 -0500
+@@ -298,7 +298,7 @@
+     hits = {}
+     for i, (hit_sequence, hit_description) in enumerate(parsed_a3m):
+         # Never skip first entry (query) but skip non-protein chains
+-        if (i != 0) & ("mol:protein" not in hit_description):
++        if (i != 0) & ("mol:protein" not in hit_description) & ("mol:rna" not in hit_description):
+             continue
+ 
+         # Parse the hit description line
+@@ -587,6 +587,17 @@
+         headers = self._parse_headers(alignment_source)
+         aln_row_map = self._parse_aln_rows(alignment_source)
+ 
++        # ---- TPL-TRACE Stage 1: StoParser entry ----
++        try:
++            _moltypes = headers["moltype"].tolist() if "moltype" in headers.columns else []
++        except Exception:
++            _moltypes = []
++        print(
++            f"[TPL-TRACE-STO] StoParser called: n_headers={len(headers)} "
++            f"moltypes={_moltypes[:8]} query_len={len(query_seq_str)}",
++            flush=True,
++        )
++
+         first_header = headers.iloc[0]
+         first_id_base = first_header["id"]
+         first_id_full = f"{first_id_base}/{first_header['start']}-{first_header['end']}"
+@@ -595,6 +606,13 @@
+         first_seq_str = first_aln_str.replace("-", "").replace(".", "").upper()
+         is_first_query = first_seq_str in query_seq_str
+ 
++        # ---- TPL-TRACE Stage 1b: query-detection branch ----
++        print(
++            f"[TPL-TRACE-STO] is_first_query={is_first_query} "
++            f"first_seq_len={len(first_seq_str)}",
++            flush=True,
++        )
++
+         if is_first_query:
+             query_start_idx = int(first_header["start"])
+             # It is possible that the aligned subsequence in the first row is identical

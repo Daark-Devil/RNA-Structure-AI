@@ -1,0 +1,15 @@
+--- /home/dpancholi1/miniconda3/envs/openfold3_clean/lib/python3.11/site-packages/openfold3/projects/of3_all_atom/config/model_config.py	2026-04-20 17:15:09.706623904 -0500
++++ /home/dpancholi1/miniconda3/envs/openfold3_rna_templ/lib/python3.11/site-packages/openfold3/projects/of3_all_atom/config/model_config.py	2026-05-08 16:29:02.289827474 -0500
+@@ -112,10 +112,10 @@
+                 },
+                 "eval": {
+                     "chunk_size": None,
+-                    "use_deepspeed_evo_attention": not _is_rocm,
++                    "use_deepspeed_evo_attention": False,
+                     "use_cueq_triangle_kernels": False,
+                     "use_triton_triangle_kernels": _is_rocm,
+-                    "use_lma": False,
++                    "use_lma": True,
+                     "msa_module": {
+                         "swiglu_chunk_token_cutoff": None,
+                         "swiglu_seq_chunk_size": None,

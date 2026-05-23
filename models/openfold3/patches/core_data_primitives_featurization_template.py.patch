@@ -1,0 +1,158 @@
+--- /home/dpancholi1/miniconda3/envs/openfold3_clean/lib/python3.11/site-packages/openfold3/core/data/primitives/featurization/template.py	2026-04-20 17:15:09.137752869 -0500
++++ /home/dpancholi1/miniconda3/envs/openfold3_rna_templ/lib/python3.11/site-packages/openfold3/core/data/primitives/featurization/template.py	2026-04-26 19:26:55.955732361 -0500
+@@ -79,8 +79,26 @@
+     pseudo_beta_atom_coords = np.full((n_templates, n_tokens, 3), np.nan, dtype=float)
+     frame_atom_coords = np.full((n_templates, n_tokens, 3, 3), np.nan, dtype=float)
+ 
++    # ---- TPL-TRACE Stage 4: featurization entry ----
++    _n_chains_with_slices = len(template_slice_collection.template_slices)
++    _total_slices = sum(
++        len(v) for v in template_slice_collection.template_slices.values()
++    )
++    print(
++        f"[TPL-TRACE-FEAT] entry: n_templates={n_templates} n_tokens={n_tokens} "
++        f"chains_with_slices={_n_chains_with_slices} "
++        f"total_slices={_total_slices}",
++        flush=True,
++    )
++
++    _filled_count = 0
+     # Iterate over chains then templates per chain
+-    for _, template_slices in template_slice_collection.template_slices.items():
++    for _chain_key, template_slices in template_slice_collection.template_slices.items():
++        print(
++            f"[TPL-TRACE-FEAT]   chain_iter: chain={_chain_key} "
++            f"n_slices={len(template_slices)}",
++            flush=True,
++        )
+         template_idx = 0
+         for template_slice in template_slices:
+             # TODO add support for these cases below Skip templates that fail to be
+@@ -100,19 +118,37 @@
+                 )
+ 
+                 # Pseudo beta atom coordinates
+-                is_gly = template_atom_array.res_name == "GLY"
+-                is_ca = template_atom_array.atom_name == "CA"
+-                is_cb = template_atom_array.atom_name == "CB"
+-                is_pseudo_beta_atom = (is_gly & is_ca) | (~is_gly & is_cb)
+-
+-                # Skip templates that have non-canonical residues with "non-canonical
+-                # C-beta atoms" or missing C-beta atoms
+-                # TODO: add handling for these
+-                # cases to be able to include them or skip them in a way that allows for
+-                # retaining the correct number of sampled templates
+-                if sum(is_pseudo_beta_atom) != len(residue_starts):
++                rna_residues = {"A", "G", "C", "U", "DA", "DG", "DC", "DT"}
++                _res_names_set = set(template_atom_array[struc.get_residue_starts(template_atom_array)].res_name)
++                _is_rna_template = bool(_res_names_set & rna_residues)
++
++                if _is_rna_template:
++                    is_pseudo_beta_atom = template_atom_array.atom_name == "C1'"
++                else:
++                    is_gly = template_atom_array.res_name == "GLY"
++                    is_ca = template_atom_array.atom_name == "CA"
++                    is_cb = template_atom_array.atom_name == "CB"
++                    is_pseudo_beta_atom = (is_gly & is_ca) | (~is_gly & is_cb)
++
++                # ---- TPL-TRACE Stage 4b: pseudo-beta sanity ----
++                _pseudo_count = int(sum(is_pseudo_beta_atom))
++                _expected = len(residue_starts)
++                print(
++                    f"[TPL-TRACE-FEAT]     slice_iter: tpl_idx={template_idx} "
++                    f"atoms={len(template_atom_array)} "
++                    f"_is_rna={_is_rna_template} "
++                    f"pseudo_beta_count={_pseudo_count} "
++                    f"expected={_expected}",
++                    flush=True,
++                )
++                if _pseudo_count != _expected:
++                    print(
++                        f"[TPL-TRACE-FEAT]     SKIP slice — "
++                        f"pseudo-beta count {_pseudo_count} != expected {_expected}",
++                        flush=True,
++                    )
+                     logger.debug(
+-                        "Skipping template with non-canonical/missing C-beta atoms."
++                        "Skipping template with non-canonical/missing pseudo-beta atoms."
+                     )
+                     continue
+ 
+@@ -124,35 +160,50 @@
+                     )
+                 )
+ 
+-                # Frame (N, CA, C) atom coordinates
+-                is_n = template_atom_array.atom_name == "N"
+-                is_ca = template_atom_array.atom_name == "CA"
+-                is_c = template_atom_array.atom_name == "C"
++                if _is_rna_template:
++                    is_frame0 = template_atom_array.atom_name == "P"
++                    is_frame1 = template_atom_array.atom_name == "C4'"
++                    is_frame2 = template_atom_array.atom_name == "C1'"
++                else:
++                    is_frame0 = template_atom_array.atom_name == "N"
++                    is_frame1 = template_atom_array.atom_name == "CA"
++                    is_frame2 = template_atom_array.atom_name == "C"
+                 frame_atom_coords[template_idx, query_token_positions, 0, :] = (
+                     np.repeat(
+-                        template_atom_array[is_n].coord,
++                        template_atom_array[is_frame0].coord,
+                         template_residue_repeats,
+                         axis=0,
+                     )
+                 )
+                 frame_atom_coords[template_idx, query_token_positions, 1, :] = (
+                     np.repeat(
+-                        template_atom_array[is_ca].coord,
++                        template_atom_array[is_frame1].coord,
+                         template_residue_repeats,
+                         axis=0,
+                     )
+                 )
+                 frame_atom_coords[template_idx, query_token_positions, 2, :] = (
+                     np.repeat(
+-                        template_atom_array[is_c].coord,
++                        template_atom_array[is_frame2].coord,
+                         template_residue_repeats,
+                         axis=0,
+                     )
+                 )
+ 
+                 template_idx += 1
++                _filled_count += 1
++                # ---- TPL-TRACE Stage 4c: slice filled successfully ----
++                print(
++                    f"[TPL-TRACE-FEAT]     FILLED slice idx={template_idx - 1} "
++                    f"(running total={_filled_count})",
++                    flush=True,
++                )
+             except Exception as e:
+                 tb = traceback.format_exc()
++                print(
++                    f"[TPL-TRACE-FEAT]     EXCEPTION in slice — {type(e).__name__}: {e}",
++                    flush=True,
++                )
+                 logger.warning(
+                     "-" * 40
+                     + "\n"
+@@ -162,6 +213,19 @@
+                 )
+                 continue
+ 
++    # ---- TPL-TRACE Stage 4d: featurization exit ----
++    _frame_nan_frac = float(np.isnan(frame_atom_coords).mean())
++    _pb_nan_frac = float(np.isnan(pseudo_beta_atom_coords).mean())
++    _gap_count = int((res_names == "GAP").sum())
++    _total_cells = res_names.size
++    print(
++        f"[TPL-TRACE-FEAT] EXIT: filled_templates={_filled_count}/{n_templates} "
++        f"frame_atom_coords NaN-fraction={_frame_nan_frac:.4f} "
++        f"pseudo_beta_atom_coords NaN-fraction={_pb_nan_frac:.4f} "
++        f"res_names GAP-count={_gap_count}/{_total_cells}",
++        flush=True,
++    )
++
+     return OF3TemplateFeaturePrecursor(
+         res_names=res_names,
+         pseudo_beta_atom_coords=pseudo_beta_atom_coords,
