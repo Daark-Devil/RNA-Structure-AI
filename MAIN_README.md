@@ -14,7 +14,7 @@ code does not support, then benchmarked against the unmodified baseline.
 | **GraphaRNA** | GNN + diffusion with N motif templates | planned |
 
 All work is built on the open-source projects and shared as edits/patches on top
-of the official code — install the upstream model, then apply the changes here.
+of the official code :- install the upstream model, then apply the changes here.
 
 ## Repository layout
 
@@ -38,10 +38,10 @@ apply them to a fresh install), the pipeline scripts, a complete worked example
 Stock AlphaFold3 reproductions support protein templates and protein MSAs, but not
 RNA equivalents. This work adds:
 
-- **OpenFold3** — accepts RNA 3D templates (C1' distances, P-C4'-C1' frames) and an
+- **OpenFold3** : accepts RNA 3D templates (C1' distances, P-C4'-C1' frames) and an
   optional synthetic MSA generated from the RNA secondary structure, giving the
   model coevolution-like signal without a real alignment.
-- **Boltz-2** — accepts RNA template chains (frames from C4'-C1'-glycosidic N), and
+- **Boltz-2** : accepts RNA template chains (frames from C4'-C1'-glycosidic N), and
   a generator that turns dot-bracket SS into contact constraints (works on stock
   Boltz, no patch needed).
 
