@@ -1,0 +1,29 @@
+<div style="position: relative; width: 100%; height: 340px;">
+<canvas id="wl" role="img" aria-label="Bar chart comparing OpenFold3 and Boltz-2 best RMSD on two RNAs. On 1E7K, OpenFold3 scores 0.94 Angstrom versus Boltz-2 at 9.78. On 3G8T, Boltz-2 scores 2.80 versus OpenFold3 at 11.03.">OpenFold3 vs Boltz-2 best RMSD. 1E7K: OF3 0.94, Boltz 9.78. 3G8T: OF3 11.03, Boltz 2.80.</canvas>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 16px; margin-top: 12px; font-size: 12px; color: var(--color-text-secondary);">
+<span style="display: flex; align-items: center; gap: 4px;"><span style="width: 10px; height: 10px; border-radius: 2px; background: #378ADD;"></span>OpenFold3 best</span>
+<span style="display: flex; align-items: center; gap: 4px;"><span style="width: 10px; height: 10px; border-radius: 2px; background: #D85A30;"></span>Boltz-2 best</span>
+<span style="color: var(--color-text-tertiary);">lower RMSD is better</span>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script>
+new Chart(document.getElementById('wl'), {
+  type: 'bar',
+  data: {
+    labels: ['1E7K  (OF3 wins)', '3G8T  (Boltz wins)'],
+    datasets: [
+      { label: 'OpenFold3 best', data: [0.94, 11.03], backgroundColor: '#378ADD' },
+      { label: 'Boltz-2 best', data: [9.78, 2.80], backgroundColor: '#D85A30' }
+    ]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: { legend: { display: false } },
+    scales: {
+      y: { beginAtZero: true, title: { display: true, text: 'best RMSD (Angstrom)' }, ticks: { callback: v => v + ' A' } },
+      x: { ticks: { autoSkip: false } }
+    }
+  }
+});
+</script>
