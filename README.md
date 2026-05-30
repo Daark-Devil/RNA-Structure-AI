@@ -13,6 +13,22 @@ code does not support, then benchmarked against the unmodified baseline.
 | **Boltz-2** | RNA templates + SS contact constraints (2 edited files) | included |
 | **GraphaRNA** | GNN + diffusion with N motif templates | planned |
 
+
+
+## Selected results: OF3 MSA-enhanced approaches win
+
+RMSD (Å), best per row in **bold**.
+
+| RNA | Length | OF3 baseline | OF3 MSA v5 | OF3 combined | Boltz template |
+|------|-------:|-------------:|-----------:|-------------:|---------------:|
+| 1E7K | 17  | 8.98 | 0.94 | **0.84** | 9.88 |
+| 1P5P | 77  | 22.45 | 3.42 | **3.39** | 6.72 |
+| 1P5O | 77  | 22.57 | **3.81** | 3.82 | 6.13 |
+| 1HMH | 34  | 11.39 | **6.87** | 9.58 | 15.98 |
+| 1KH6 | 48  | 5.94 | **5.91** | 7.10 | 14.18 |
+
+OF3 combined achieves **sub-Ångström accuracy on 1E7K (0.84 Å)**. OF3 MSA v5 and combined together dominate this subset, recovering predictions from 22 Å baseline failure (1P5P, 1P5O) to single-digit RMSD.
+
 All work is built on the open-source projects and shared as edits/patches on top
 of the official code :- install the upstream model, then apply the changes here.
 
