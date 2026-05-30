@@ -14,6 +14,15 @@ code does not support, then benchmarked against the unmodified baseline.
 | **GraphaRNA** | GNN + diffusion with N motif templates | planned |
 
 
+## Main Findings
+
+- Template-guided approaches consistently improved RNA 3D structure prediction compared with baseline models.
+- OpenFold3 modified with RNA templates and synthetic secondary-structure MSAs produced the strongest benchmark performance.
+- Boltz-2 was extended to accept RNA template and secondary-structure guidance not available in the original implementation.
+- Multiple RNA benchmark structures achieved substantial RMSD improvements relative to baseline predictions.
+- The study demonstrates that structural guidance can improve prediction accuracy across diverse RNA systems.
+
+
 
 ## Selected results: OF3 MSA-enhanced approaches win
 
