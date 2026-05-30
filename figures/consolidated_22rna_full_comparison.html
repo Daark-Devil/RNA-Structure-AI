@@ -1,0 +1,100 @@
+<style>
+.tbl-wrap { padding: 1rem 0; font-family: var(--font-sans); color: var(--color-text-primary); }
+.tbl-title { font-size: 18px; font-weight: 500; margin: 0 0 4px; }
+.tbl-sub { font-size: 13px; color: var(--color-text-secondary); margin: 0 0 14px; }
+table.r { width: 100%; border-collapse: collapse; font-size: 12px; }
+table.r th, table.r td { padding: 6px 7px; border: 1px solid var(--color-border-tertiary); text-align: right; }
+table.r th { background: var(--color-background-secondary); font-weight: 500; font-size: 10.5px; text-transform: uppercase; letter-spacing: .3px; color: var(--color-text-secondary); }
+table.r td.rna { text-align: left; font-weight: 500; }
+table.r td.len { color: var(--color-text-secondary); }
+.win { background: #C0DD97; color: #173404; font-weight: 500; }
+.good { background: #EAF3DE; color: #173404; }
+.bad { background: #F7C1C1; color: #501313; }
+.summary { display: flex; gap: 10px; flex-wrap: wrap; margin: 14px 0 4px; }
+.pill { font-size: 11.5px; background: var(--color-background-secondary); padding: 4px 9px; border-radius: 6px; color: var(--color-text-secondary); border: 1px solid var(--color-border-tertiary); }
+.pill b { color: var(--color-text-primary); font-weight: 500; }
+.legend { display: flex; gap: 14px; font-size: 12px; color: var(--color-text-secondary); margin-top: 10px; flex-wrap: wrap; }
+.sw { display: inline-block; width: 12px; height: 12px; border-radius: 3px; vertical-align: -2px; margin-right: 5px; }
+.note { font-size: 12px; color: var(--color-text-secondary); margin-top: 12px; line-height: 1.55; }
+@media (prefers-color-scheme: dark) {
+  .win { background: #3B6D11; color: #EAF3DE; }
+  .good { background: #27500A; color: #C0DD97; }
+  .bad { background: #791F1F; color: #F7C1C1; }
+}
+</style>
+<div class="tbl-wrap">
+<div class="tbl-title">22-RNA RMSD comparison: all OF3 conditions vs both Boltz approaches</div>
+<div class="tbl-sub">Best per row in solid green. Sub-5 Å in light green. Over 20 Å in red.</div>
+<div class="summary" id="summary"></div>
+<table class="r">
+<thead><tr>
+<th style="text-align:left">RNA</th><th>Len</th>
+<th>OF3 baseline</th><th>OF3 template</th><th>OF3 MSA v1</th><th>OF3 MSA+TB</th><th>OF3 MSA v5</th><th>OF3 combined</th>
+<th>Boltz SS</th><th>Boltz template</th>
+</tr></thead>
+<tbody id="tbody"></tbody>
+</table>
+<div class="legend">
+<span><span class="sw" style="background:#C0DD97"></span>best per row</span>
+<span><span class="sw" style="background:#EAF3DE"></span>under 5 Å (good)</span>
+<span><span class="sw" style="background:#F7C1C1"></span>over 20 Å (failure)</span>
+</div>
+<div class="note" id="readout"></div>
+</div>
+<script>
+const cols = ['OF3 baseline','OF3 template','OF3 MSA v1','OF3 MSA+TB','OF3 MSA v5','OF3 combined','Boltz SS','Boltz template'];
+const data = [
+  ['1NBS',150,25.34,18.39,16.21,14.65,11.26,12.14, 7.09,23.37],
+  ['1P5P', 77,22.45,11.14, 3.54, 3.56, 3.42, 3.39, 4.23, 6.72],
+  ['1P5O', 77,22.57,10.84, 4.18, 4.17, 3.81, 3.82, 3.95, 6.13],
+  ['1G1X', 44,18.39,18.46,17.18,17.37,17.76,14.52,18.74,20.00],
+  ['1U9S',155,14.72, 8.70,28.88,28.80,22.24,21.97,13.06, 2.60],
+  ['1HMH', 34,11.39,11.48,14.39,14.39, 6.87, 9.58,14.14,15.98],
+  ['3G8T',141,11.03,15.48,11.29,11.27,12.34,12.42, 2.80,31.65],
+  ['1A1T', 20, 1.45, 4.02, 1.97, 1.91, 1.68, 1.65, 2.13, 2.57],
+  ['1U6P',101,11.63,14.37,10.18,10.13,12.02,10.82,14.72,33.45],
+  ['1XJR', 47,12.11, 8.91, 7.93, 7.92, 8.08, 8.07, null, 6.65],
+  ['1RMN', 49,10.78,10.33,10.94,10.94,10.82,10.59, null,12.17],
+  ['1M5V', 92, 8.18,12.34,10.29,10.45, 8.80, 8.64, null,26.52],
+  ['1M5P', 92, 8.17,12.38,10.30,10.45, 8.82, 8.61, null,12.76],
+  ['1M5K', 92, 8.20,12.36,10.77,11.09,11.67,11.78, null,16.51],
+  ['1FOQ',109, 9.09,15.89, 8.74, 8.93, 8.10, 9.46, null,15.34],
+  ['1S9S',101, 8.88,11.85, 8.59, 8.52, 8.74, 8.77, null,16.67],
+  ['1C2X',120,10.15,18.31, 9.51, 9.61,10.33,10.22, null,10.68],
+  ['1P6V', 45, 8.14, 8.03, 8.36, 8.38, 7.89, 7.94, null, 3.93],
+  ['1KH6', 48, 5.94, 6.95, 7.15, 7.10, 5.91, 7.10, null,14.18],
+  ['1E7K', 17, 8.98, 2.84, 0.85, 4.52, 0.94, 0.84, null, 9.88],
+  ['1J2B', 77, 9.04, 7.49,11.90,11.91,11.20,11.23, null,10.30],
+  ['1AUD', 30, 8.12, 8.56, 8.93, 8.92, 8.86, 8.89, null, 7.42],
+];
+const tbody = document.getElementById('tbody');
+const winCounts = new Array(cols.length).fill(0);
+data.forEach(row => {
+  const [rna, len, ...vals] = row;
+  const present = vals.map((v,i) => v===null ? Infinity : v);
+  const min = Math.min(...present);
+  const tr = document.createElement('tr');
+  tr.innerHTML = `<td class="rna">${rna}</td><td class="len">${len}</td>` +
+    vals.map((v,i) => {
+      if (v === null) return `<td class="na">—</td>`;
+      let cls = '';
+      if (v === min) { cls = 'win'; winCounts[i]++; }
+      else if (v < 5) cls = 'good';
+      else if (v >= 20) cls = 'bad';
+      return `<td class="${cls}">${v.toFixed(2)}</td>`;
+    }).join('');
+  tbody.appendChild(tr);
+});
+// summary pills
+const sum = document.getElementById('summary');
+cols.forEach((c,i) => {
+  if (winCounts[i] > 0) {
+    const p = document.createElement('span');
+    p.className = 'pill';
+    p.innerHTML = `${c}: <b>${winCounts[i]}</b> wins`;
+    sum.appendChild(p);
+  }
+});
+document.getElementById('readout').textContent =
+  'OF3 combined and OF3 MSA v5 are the most reliable. Boltz template has the boldest single win (1U9S at 2.60 Å where every OF3 condition fails) and a sub-Å-class win for 1P6V, but several large failures (1U6P, 3G8T, 1M5V > 25 Å). Boltz SS was only run on the first 9 RNAs.';
+</script>
